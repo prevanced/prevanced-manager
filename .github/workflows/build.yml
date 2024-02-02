@@ -55,7 +55,7 @@ jobs:
       - name: Release APK
         uses: ncipollo/release-action@v1
         with:
-          artifacts: app/build/outputs/apk/release/*.apk
+          artifacts: android/app/build/outputs/apk/release/*.apk
           tag: ${{ steps.tag.outputs.version }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
