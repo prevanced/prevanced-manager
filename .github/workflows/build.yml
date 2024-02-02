@@ -43,7 +43,7 @@ jobs:
           cd android
           chmod +x ./gradlew
           ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/android/app/prevanced.jks \
+            -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/android/app/keystore.jks \
             -Pandroid.injected.signing.store.password="${{ secrets.STORE_PASSWORD }}" \
             -Pandroid.injected.signing.key.alias="key0" \
             -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}"
