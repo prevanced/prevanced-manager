@@ -1,3 +1,5 @@
+rootProject.name = 'prevanced-manager'
+
 dependencyResolutionManagement {
   versionCatalogs {
     reactAndroidLibs {
