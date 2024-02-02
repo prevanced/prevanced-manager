@@ -1,0 +1,43 @@
+name: Build & Publish Release APK
+
+on:
+  push:
+    branches:
+      - stable
+    tags:
+      - '*'
+  workflow_dispatch:
+
+
+jobs:
+  Gradle:
+    runs-on: ubuntu-latest
+    environment: 
+      name: Builder
+    permissions:
+      contents: write
+
+    steps:
+
+    - name: checkout code
+      uses: actions/checkout@v2
+    
+    - name: Build Signed APK
+      uses: TeamNecta/build-signed-apk@main
+      with:
+        keystore_b64: ${{ secrets.BASE_64_SIGNING_KEY }}
+        keystore_password: ${{ secrets.STORE_PASSWORD }}
+        key_alias: "key0"
+        key_password: ${{ secrets.KEY_PASSWORD }}
+
+    - name: Prepare Tag
+      id: tag
+      run: echo "version=$(date +'v%y.%m.%d.%H%M%S')"  >> $GITHUB_OUTPUT
+
+    - name: Release APK
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: app/build/outputs/apk/release/*.apk
+        tag: ${{ steps.tag.outputs.version }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
