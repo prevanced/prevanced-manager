@@ -1,19 +1,20 @@
 import { Link, Tabs } from 'expo-router'
 import { Pressable } from 'react-native'
-import { Text } from 'tamagui'
 import { Home, Menu, Settings2 } from '@tamagui/lucide-icons'
 
 export default function TabLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: 'cyan',
-      }}
-    >
+    <Tabs screenOptions={{
+      headerShown: true,
+      headerTitleAlign: 'left',
+      headerTitleStyle: {
+        fontSize: 20,
+      },
+    }}>
       <Tabs.Screen
         name='index'
         options={{
-          title: 'Home',
+          title: 'PreVanced',
           tabBarIcon: ({ color }) => <Home color={color} />,
           headerRight: () => (
             <Link href='/modal' asChild>
@@ -25,9 +26,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name='two'
+        name='config'
         options={{
-          title: 'Settings',
+          title: 'Config',
           tabBarIcon: ({ color }) => <Settings2 color={color}/>,
         }}
       />
