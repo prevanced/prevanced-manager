@@ -26,11 +26,12 @@ jobs:
           cache: "gradle"
 
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: antongolub/action-setup-bun@v1 # or @v1.x.x
         with:
-          node-version: "20"
-          cache: "bun"
-
+          bun-version: "1.0.25"
+          cache: true
+          cache-bin: true
+          
       - name: Install dependencies
         run: bun install
 
