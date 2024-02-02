@@ -11,8 +11,6 @@ on:
 jobs:
   Gradle:
     runs-on: ubuntu-latest
-    environment:
-      name: Builder
     permissions:
       contents: write
 
@@ -20,15 +18,33 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
 
-      - name: Build Signed APK
-        uses: TeamNecta/build-signed-apk@main
+      - name: Set up JDK
+        uses: actions/setup-java@v4
         with:
-          keystore_b64: ${{ secrets.BASE_64_SIGNING_KEY }}
-          keystore_password: ${{ secrets.STORE_PASSWORD }}
-          key_alias: "key0"
-          key_password: ${{ secrets.KEY_PASSWORD }}
-          gradlew_dir: "android/"
-          java_version: "21"
+          distribution: "adopt"
+          java-version: "21"
+          cache: "gradle"
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts"
+          cache: "yarn"
+
+      - name: Prepare Keystore
+        shell: bash
+        run: echo "${{ secrets.BASE_64_SIGNING_KEY }}" | base64 -d > $GITHUB_WORKSPACE/signing-key.jks
+
+      - name: Build Signed APK
+        run: |
+          cd android
+          chmod +x ./gradlew
+          ./gradlew build
+          ./gradlew assembleRelease \
+            -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/signing-key.jks \
+            -Pandroid.injected.signing.store.password=${{ secrets.STORE_PASSWORD }} \
+            -Pandroid.injected.signing.key.alias=key0 \
+            -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
 
       - name: Prepare Tag
         id: tag
