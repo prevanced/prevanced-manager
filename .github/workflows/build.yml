@@ -27,7 +27,7 @@ jobs:
           keystore_password: ${{ secrets.STORE_PASSWORD }}
           key_alias: "key0"
           key_password: ${{ secrets.KEY_PASSWORD }}
-          gradlew_dir: "android"
+          gradlew_dir: "android/"
           java_version: "21"
 
       - name: Prepare Tag
