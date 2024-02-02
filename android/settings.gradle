@@ -1,4 +1,4 @@
-rootProject.name = 'expo-router-example'
+rootProject.name = 'prevanced-manager'
 
 dependencyResolutionManagement {
   versionCatalogs {
