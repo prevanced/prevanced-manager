@@ -8,7 +8,8 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "build:android": "expo pre-build -p android"
   },
   "jest": {
     "preset": "jest-expo"
