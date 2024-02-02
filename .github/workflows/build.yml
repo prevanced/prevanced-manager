@@ -29,13 +29,13 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: "yarn"
+          cache: "bun"
 
       - name: Install dependencies
-        run: yarn install
+        run: bun install
 
       - name: Build Expo
-        run: yarn build:android
+        run: bun run build:android
 
       - name: Prepare Keystore
         shell: bash
