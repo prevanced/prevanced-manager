@@ -37,17 +37,13 @@ jobs:
 
       - name: Build Expo
         run: bun run build:android
-
-      - name: Prepare Keystore
-        shell: bash
-        run: echo "${{ secrets.BASE_64_SIGNING_KEY }}" | base64 -d > $GITHUB_WORKSPACE/signing-key.jks
-
+        
       - name: Build Signed APK
         run: |
           cd android
           chmod +x ./gradlew
           ./gradlew assembleRelease \
-            -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/signing-key.jks \
+            -Pandroid.injected.signing.store.file=prevanced.jks \
             -Pandroid.injected.signing.store.password="${{ secrets.STORE_PASSWORD }}" \
             -Pandroid.injected.signing.key.alias="key0" \
             -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}"
