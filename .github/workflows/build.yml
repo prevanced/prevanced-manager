@@ -77,6 +77,7 @@ jobs:
           cd android
           chmod +x ./gradlew
           ./gradlew assembleRelease \
+            --build-cache \
             -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/android/app/keystore.jks \
             -Pandroid.injected.signing.store.password="${{ secrets.STORE_PASSWORD }}" \
             -Pandroid.injected.signing.key.alias="key0" \
