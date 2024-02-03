@@ -49,13 +49,24 @@ jobs:
             -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}"
 
       - name: Prepare Tag
+        shell: bash
         id: tag
-        run: echo "version=$(date +'v%y.%m.%d.%H%M%S')"  >> $GITHUB_OUTPUT
+        run: |
+          if [[ ${{ github.ref_name }} == v* ]]; then
+            echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "tag=$(date +'v%y.%m.%d.%H%M%S')" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Rename APK
+        shell: bash
+        run: |
+          mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/prevanced-manager-${{ steps.tag.outputs.tag }}.apk
 
       - name: Release APK
         uses: ncipollo/release-action@v1
         with:
           artifacts: android/app/build/outputs/apk/release/*.apk
-          tag: ${{ steps.tag.outputs.version }}
+          tag: ${{ steps.tag.outputs.tag }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
