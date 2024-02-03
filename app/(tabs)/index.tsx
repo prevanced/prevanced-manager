@@ -19,6 +19,9 @@ import { Linking } from "react-native";
 
 type Release = {
   name: string;
+  fileName: string;
+  version: string;
+  arch: string;
   browser_download_url: string;
 };
 
@@ -34,7 +37,23 @@ export default function TabOneScreen() {
         "https://api.github.com/repos/Revanced-APKs/build-apps/releases/latest"
       );
       const data = await response.json();
-      data.assets && setReleases(data.assets);
+      data.assets && setReleases(data.assets.filter((asset: Release) => !asset.name.match("magisk")).map((asset: Release) => {
+        let name = asset.name.split("-")[0];
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+        let version = asset.name.split("-")[2];
+        let arch = asset.name.split("-")[3].split(".")[0];
+
+        if (arch != "all") {
+          name = name + " " + arch;
+        }
+        return {
+          name,
+          fileName: asset.name,
+          version,
+          arch,
+          browser_download_url: asset.browser_download_url,
+        };
+      }));
       setLoading(false);
     }
     fetchReleases();
@@ -71,7 +90,9 @@ export default function TabOneScreen() {
                         <Card.Header padded>
                           <H2>{release.name}</H2>
                           <Paragraph theme="alt2">
-                            Now Available for Download
+                            {release.fileName}{" "}
+                            Architecture: {release.arch} {" "}
+                            Version: {release.version}
                           </Paragraph>
                         </Card.Header>
                         <Card.Footer padded>
