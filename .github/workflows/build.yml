@@ -68,5 +68,6 @@ jobs:
         with:
           artifacts: android/app/build/outputs/apk/release/*.apk
           tag: ${{ steps.tag.outputs.tag }}
+          prerelease: ${{ !startsWith(github.ref_name, 'v') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
