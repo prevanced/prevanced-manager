@@ -1,6 +1,5 @@
-import { Link, Tabs } from 'expo-router'
-import { Pressable } from 'react-native'
-import { Home, Menu, Settings2 } from '@tamagui/lucide-icons'
+import { Tabs } from 'expo-router'
+import { Home, Settings2 } from '@tamagui/lucide-icons'
 
 export default function TabLayout() {
   return (
