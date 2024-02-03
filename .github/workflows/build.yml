@@ -32,6 +32,41 @@ jobs:
           cache: true
           cache-bin: true
           
+      - name: Prepare Tag
+        shell: bash
+        id: tag
+        run: |
+          if [[ ${{ github.ref_name }} == v* ]]; then
+            tag="${{ github.ref_name }}"
+            echo "prerelease=false" >> $GITHUB_OUTPUT
+          elif [[ ${{ github.ref_name }} == stable ]]; then
+            # check previous tag if available increment it
+            previous_tag=$(git describe --tags --abbrev=0)
+            if [[ $previous_tag == v* ]]; then
+              previous_tag=${previous_tag:1}
+              IFS='.' read -r -a array <<< "$previous_tag"
+              array[3]=$((array[3]+1))
+              tag="v${array[0]}.${array[1]}.${array[2]}.${array[3]}"
+            else
+              tag="$(date +'v%y.%m.%d.%H%M')"
+            fi
+            echo "prerelease=false" >> $GITHUB_OUTPUT
+          else
+            tag="$(date +'v%y.%m.%d.%H%M%S')"
+            echo "prerelease=true" >> $GITHUB_OUTPUT
+          fi
+          echo "tag=$tag" >> $GITHUB_OUTPUT
+
+      - name: Bump version in app.json
+        if: steps.tag.outputs.prerelease == 'false'
+        run: |
+          tag=${{ steps.tag.outputs.tag }}
+          # change version in app.json
+          sed -i "s/\"version\": \".*\"/\"version\": \"${tag:1}\"/g" app.json
+          git add app.json
+          git commit -m "chore: bump version to $tag"
+          git push
+
       - name: Install dependencies
         run: bun install
 
@@ -48,20 +83,6 @@ jobs:
             -Pandroid.injected.signing.key.alias="key0" \
             -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}"
 
-      - name: Prepare Tag
-        shell: bash
-        id: tag
-        run: |
-          if [[ ${{ github.ref_name }} == v* ]]; then
-            echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
-            echo "prerelease=false" >> $GITHUB_OUTPUT
-          elif [[ ${{ github.ref_name }} == stable ]]; then
-            echo "tag=$(date +'v%y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
-            echo "prerelease=false" >> $GITHUB_OUTPUT
-          else
-            echo "tag=$(date +'v%y.%m.%d.%H%M%S')" >> $GITHUB_OUTPUT
-            echo "prerelease=true" >> $GITHUB_OUTPUT
-          fi
 
       - name: Rename APK
         shell: bash
