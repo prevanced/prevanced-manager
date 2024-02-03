@@ -16,13 +16,6 @@ export default function TabLayout() {
         options={{
           title: 'PreVanced',
           tabBarIcon: ({ color }) => <Home color={color} />,
-          headerRight: () => (
-            <Link href='/modal' asChild>
-              <Pressable>
-                <Menu />
-              </Pressable>
-            </Link>
-          ),
         }}
       />
       <Tabs.Screen
