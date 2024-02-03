@@ -16,7 +16,9 @@ jobs:
 
     steps:
       - name: checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Setup JDK
         uses: actions/setup-java@v4
@@ -45,10 +47,10 @@ jobs:
             if [[ $previous_tag == v* ]]; then
               previous_tag=${previous_tag:1}
               IFS='.' read -r -a array <<< "$previous_tag"
-              array[3]=$((array[3]+1))
-              tag="v${array[0]}.${array[1]}.${array[2]}.${array[3]}"
+              array[3]=$((array[2]+1))
+              tag="v${array[0]}.${array[1]}.${array[2]}"
             else
-              tag="$(date +'v%y.%m.%d.%H%M')"
+              tag="v0.0.1"
             fi
             echo "prerelease=false" >> $GITHUB_OUTPUT
           else
