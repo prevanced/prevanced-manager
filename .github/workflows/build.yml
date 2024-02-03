@@ -54,13 +54,12 @@ jobs:
             fi
             echo "prerelease=false" >> $GITHUB_OUTPUT
           else
-            tag="$(date +'v%y.%m.%d.%H%M%S')"
+            tag="$(date +'vdev.%y.%m.%d.%H%M%S')"
             echo "prerelease=true" >> $GITHUB_OUTPUT
           fi
           echo "tag=$tag" >> $GITHUB_OUTPUT
 
       - name: Bump version in app.json
-        if: steps.tag.outputs.prerelease == 'false'
         run: |
           tag=${{ steps.tag.outputs.tag }}
           # change version in app.json
