@@ -1,21 +1,50 @@
-import { Button, Input, Label, View, YStack } from "tamagui";
+import { useState } from "react";
+import { Button, Input, Label, View, YStack, XStack, Paragraph, ScrollView } from "tamagui";
 
 export default function TabTwoScreen() {
+  const [ghRepo, setGhRepo] = useState("revanced-apks/build-apps");
+  const [ghReleaseTag, setGhReleaseTag] = useState("latest");
+
+  const restoreChanges = () => {
+    const default_ghRepo = "revanced-apks/build-apps";
+    const default_tag = "latest";
+  
+    setGhRepo(default_ghRepo);
+    setGhReleaseTag(default_tag);
+  };
+  
+  const applyChanges = () => {
+    console.log("Apply changes");
+  };
+
   return (
-    <View paddingVertical="$2">
-      <YStack paddingHorizontal="$4" gap="$4">
-        <YStack>
-          <Label htmlFor="ghRepo">GitHub Repository</Label>
-          <Input id="ghRepo" defaultValue="revanced-apks/build-apps" />
+    <ScrollView>
+      <View paddingVertical="$2">
+        <YStack paddingHorizontal="$4" gap="$4">
+          <YStack gap="$2">
+            <Label htmlFor="ghRepo" fontSize="$5">GitHub Repository</Label>
+            <Paragraph theme="alt1">
+              The repository to use for fetching the latest APKs from. This should be a public repository.
+            </Paragraph>
+            <Input id="ghRepo" value={ghRepo} onChangeText={setGhRepo} />
+          </YStack>
+          <YStack gap="$2">
+            <Label htmlFor="ghReleaseTag" fontSize="$5">Release Tag</Label>
+            <Paragraph theme="alt1">
+              The tag to use for fetching the latest APKs from. This should be a tag that is present in the repository. `latest` means the latest release.
+            </Paragraph>
+            <Input id="ghReleaseTag" value={ghReleaseTag} onChangeText={setGhReleaseTag} />
+          </YStack>
+          <XStack gap="$2">
+            <Button theme="red" onPress={restoreChanges}>
+              Restore
+            </Button>
+            <Button theme="green" onPress={applyChanges}>
+              Apply changes
+            </Button>
+          </XStack>
         </YStack>
-        <YStack>
-          <Label htmlFor="ghBranch">Release Tag</Label>
-          <Input id="ghBranch" defaultValue="latest" />
-        </YStack>
-        <Button theme="green_alt1" onPress={() => console.log("Apply changes")}>
-          Apply changes
-        </Button>
-      </YStack>
-    </View>
+      </View>
+    </ScrollView>
   );
 }

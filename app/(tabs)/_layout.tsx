@@ -21,7 +21,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name='config'
         options={{
-          title: 'PreVanced Config',
+          title: 'Options',
           tabBarIcon: ({ color }) => <Settings2 color={color}/>,
         }}
       />
