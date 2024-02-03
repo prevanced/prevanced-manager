@@ -36,7 +36,7 @@ export default function TabOneScreen() {
   async function fetchReleases() {
     setLoading(true);
     const awaitedOptions = await AsyncStorage.getItem("prevancedOptions");
-    const prevancedOptions: PrevancedOptions | null = JSON.parse(awaitedOptions || "");
+    const prevancedOptions: PrevancedOptions | null = JSON.parse(awaitedOptions || "{}");
     let ghReleaseUrl;
     if (prevancedOptions && prevancedOptions.ghRepo && prevancedOptions.ghReleaseTag) {
       if (prevancedOptions.ghReleaseTag == "latest") {
@@ -82,9 +82,11 @@ export default function TabOneScreen() {
     }));
   }
   useEffect(() => {
-    Promise.all([fetchReleases()]).then(() => {
+    async function initRelease() {
+      await fetchReleases();
       setLoading(false);
-    });
+    }
+    initRelease();
   }, []);
   return (
     <YStack padding="$2">
