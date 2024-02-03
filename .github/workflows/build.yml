@@ -101,6 +101,7 @@ jobs:
         if: steps.tag.outputs.prerelease == 'false'
         run: |
           tag=${{ steps.tag.outputs.tag }}
-          git add app.json
-          git commit -m "chore: bump version to $tag"
-          git push
+          if [[ $(git status --porcelain) ]]; then
+            git add app.json
+            git commit -m "chore: bump version to $tag"
+            git push
