@@ -50,7 +50,12 @@ export default function TabTwoScreen() {
   };
 
   const applyChanges = () => {
-    Promise.all([AsyncStorage.setItem("prevancedOptions", JSON.stringify(prevancedOptions))]).then(() => {
+    Promise.all([
+      AsyncStorage.setItem(
+        "prevancedOptions",
+        JSON.stringify(prevancedOptions)
+      ),
+    ]).then(() => {
       toast.show("Changes applied", {
         native: true,
       });
@@ -69,7 +74,13 @@ export default function TabTwoScreen() {
               The repository to use for fetching the latest APKs from. This
               should be a public repository.
             </Paragraph>
-            <Input id="ghRepo" defaultValue={prevancedOptions.ghRepo} onChangeText={(text) => setPrevancedOptions({ ...prevancedOptions, ghRepo: text })} />
+            <Input
+              id="ghRepo"
+              defaultValue={prevancedOptions.ghRepo}
+              onChangeText={(text) =>
+                setPrevancedOptions({ ...prevancedOptions, ghRepo: text })
+              }
+            />
           </YStack>
           <YStack gap="$2">
             <Label htmlFor="ghReleaseTag" fontSize="$5">
