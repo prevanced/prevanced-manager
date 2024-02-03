@@ -29,7 +29,21 @@ Download the latest release from [here](https://github.com/prevanced/prevanced-m
 
 ## Contributing
 
-We welcome contributions from the community. We use React Native for the app with Expo. 
+We welcome contributions from the community. We use React Native for the app with Expo.
+
+We recomment using `bun` to manage the project. However, you can use `npm`, `pnpm` or `yarn` as well.
+
+### Setup
+
+1. Clone the repository
+2. Run `bun install` to install all the dependencies
+3. Connect an android device or start an emulator with ADB (USB Debugging) enabled
+4. Run `bun run android` to start the app. All changes will be reflected in real time.
+
+### Building
+
+1. Run `bun run build:android` to build the APK for android.
+2. Output APK will be in `android/app/build/outputs/apk/release/`
 
 ## License
 
