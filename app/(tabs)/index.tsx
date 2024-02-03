@@ -71,12 +71,14 @@ export default function TabOneScreen() {
                         <Card.Header padded>
                           <H2>{release.name}</H2>
                           <Paragraph theme="alt2">
-                            {release.browser_download_url}
+                            Now Available for Download
                           </Paragraph>
                         </Card.Header>
                         <Card.Footer padded>
                           <Button
                             borderRadius="$10"
+                            bordered
+                            borderColor="$red10"
                             width="100%"
                             onPress={() =>
                               Linking.openURL(release.browser_download_url)
