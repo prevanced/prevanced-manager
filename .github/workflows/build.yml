@@ -86,7 +86,8 @@ jobs:
       - name: Rename APK
         shell: bash
         run: |
-          mv android/app/build/outputs/apk/release/app-release.apk android/app/build/outputs/apk/release/prevanced-manager-${{ steps.tag.outputs.tag }}.apk
+          tag=${{ steps.tag.outputs.tag }}
+          for file in app-*.apk; do name=$(echo $file | cut -d'-' -f2-3); new_name="prevanced-manager-${name%-release*}-$tag.apk"; mv "$file" "$new_name"; done
 
       - name: Release APK
         uses: ncipollo/release-action@v1

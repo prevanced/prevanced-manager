@@ -64,6 +64,8 @@ react {
  */
 def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInReleaseBuilds') ?: false).toBoolean()
 
+def enableSeparateBuildPerCPUArchitecture = true
+
 /**
  * The preferred build flavor of JavaScriptCore (JSC)
  *
@@ -117,6 +119,15 @@ android {
     packagingOptions {
         jniLibs {
             useLegacyPackaging (findProperty('expo.useLegacyPackaging')?.toBoolean() ?: false)
+        }
+    }
+
+    splits {
+        abi {
+            reset()
+            enable true
+            universalApk true
+            include "armeabi-v7a", "arm64-v8a", "x86", "x86_64"
         }
     }
 }
