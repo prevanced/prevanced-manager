@@ -103,7 +103,7 @@ export default function TabTwoScreen() {
             <Button theme="blue_alt1" onPress={restoreChanges}>
               Restore
             </Button>
-            <Button theme="green_active" onPress={applyChanges}>
+            <Button theme="green_active" color="white" onPress={applyChanges}>
               Apply changes
             </Button>
           </XStack>

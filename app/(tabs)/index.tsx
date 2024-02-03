@@ -82,8 +82,9 @@ export default function TabOneScreen() {
     }));
   }
   useEffect(() => {
-    fetchReleases();
-    setLoading(false);
+    Promise.all([fetchReleases()]).then(() => {
+      setLoading(false);
+    });
   }, []);
   return (
     <YStack padding="$2">
@@ -117,7 +118,7 @@ export default function TabOneScreen() {
                 .map((release, index) => {
                   return (
                     <YGroup.Item key={index}>
-                      <Card elevate bordered my="$2">
+                      <Card bordered my="$2">
                         <Card.Header padded>
                           <H2>{release.name}</H2>
                           <Paragraph theme="alt1">{release.fileName}</Paragraph>
@@ -164,7 +165,7 @@ export default function TabOneScreen() {
         size="$5"
         borderRadius="$12"
       >
-        <RefreshCcwDot />
+        <RefreshCcwDot color="white" />
       </Button>
       </>}
     </YStack>
