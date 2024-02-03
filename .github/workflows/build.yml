@@ -28,7 +28,7 @@ jobs:
           cache: "gradle"
 
       - name: Setup Bun
-        uses: antongolub/action-setup-bun@v1 # or @v1.x.x
+        uses: antongolub/action-setup-bun@v1
         with:
           bun-version: "1.0.25"
           cache: true
