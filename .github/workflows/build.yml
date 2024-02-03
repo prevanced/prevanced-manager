@@ -65,9 +65,6 @@ jobs:
           tag=${{ steps.tag.outputs.tag }}
           # change version in app.json
           sed -i "s/\"version\": \".*\"/\"version\": \"${tag:1}\"/g" app.json
-          git add app.json
-          git commit -m "chore: bump version to $tag"
-          git push
 
       - name: Install dependencies
         run: bun install
@@ -99,3 +96,11 @@ jobs:
           prerelease: ${{ steps.tag.outputs.prerelease }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Sync app.json version
+        if: steps.tag.outputs.prerelease == 'false'
+        run: |
+          tag=${{ steps.tag.outputs.tag }}
+          git add app.json
+          git commit -m "chore: bump version to $tag"
+          git push
