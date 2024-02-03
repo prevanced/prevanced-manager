@@ -2,7 +2,6 @@ import {
   View,
   Input,
   Spinner,
-  Text,
   YStack,
   ScrollView,
   YGroup,
@@ -10,11 +9,10 @@ import {
   Button,
   H2,
   Paragraph,
+  Separator,
   XStack,
-  Image,
 } from "tamagui";
 import { useEffect, useState } from "react";
-import { Link } from "expo-router";
 import { Linking } from "react-native";
 
 type Release = {
@@ -81,19 +79,22 @@ export default function TabOneScreen() {
             <ScrollView>
               {releases
                 .filter((release) =>
-                  release.name.toLowerCase().includes(search.toLowerCase())
+                  release.fileName.toLowerCase().includes(search.toLowerCase())
                 )
+                .reverse()
                 .map((release, index) => {
                   return (
                     <YGroup.Item key={index}>
                       <Card elevate bordered my="$2">
                         <Card.Header padded>
                           <H2>{release.name}</H2>
-                          <Paragraph theme="alt2">
-                            {release.fileName}{" "}
-                            Architecture: {release.arch} {" "}
-                            Version: {release.version}
-                          </Paragraph>
+                          <Paragraph theme="alt1">{release.fileName}</Paragraph>
+                          <Separator marginVertical="$2" />
+                          <XStack alignItems="center">
+                            <Paragraph>{release.version}</Paragraph>
+                            <Separator alignSelf="stretch" vertical marginHorizontal={15} />
+                            <Paragraph>{release.arch}</Paragraph>
+                          </XStack>
                         </Card.Header>
                         <Card.Footer padded>
                           <Button
