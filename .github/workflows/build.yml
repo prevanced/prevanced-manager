@@ -86,6 +86,7 @@ jobs:
       - name: Rename APK
         shell: bash
         run: |
+          cd android/app/build/outputs/apk/release
           tag=${{ steps.tag.outputs.tag }}
           for file in app-*.apk; do name=$(echo $file | cut -d'-' -f2-3); new_name="prevanced-manager-${name%-release*}-$tag.apk"; mv "$file" "$new_name"; done
 
