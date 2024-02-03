@@ -18,14 +18,14 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK
+      - name: Setup JDK
         uses: actions/setup-java@v4
         with:
           distribution: "adopt"
           java-version: "20"
           cache: "gradle"
 
-      - name: Setup node
+      - name: Setup Bun
         uses: antongolub/action-setup-bun@v1 # or @v1.x.x
         with:
           bun-version: "1.0.25"
