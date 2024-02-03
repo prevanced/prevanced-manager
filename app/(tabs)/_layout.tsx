@@ -14,14 +14,14 @@ export default function TabLayout() {
       <Tabs.Screen
         name='index'
         options={{
-          title: 'PreVanced',
+          title: 'PreVanced Manager',
           tabBarIcon: ({ color }) => <Home color={color} />,
         }}
       />
       <Tabs.Screen
         name='config'
         options={{
-          title: 'Config',
+          title: 'PreVanced Config',
           tabBarIcon: ({ color }) => <Settings2 color={color}/>,
         }}
       />
