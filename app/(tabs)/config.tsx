@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Input, Label, View, YStack, XStack, Paragraph, ScrollView } from "tamagui";
-import { useToastController, useToastState } from '@tamagui/toast';
+import { useToastController } from '@tamagui/toast';
 
 export default function TabTwoScreen() {
   const toast = useToastController();
