@@ -29,9 +29,9 @@ Download the latest release from [here](https://github.com/prevanced/prevanced-m
 
 ## Contributing
 
-We welcome contributions from the community. We use React Native for the app with Expo.
+We welcome contributions from the community. We use React Native for the app with Expo. It is fully written in TypeScript and compiled to native Java/Kotlin code for Android.
 
-We recomment using `bun` to manage the project. However, you can use `npm`, `pnpm` or `yarn` as well.
+We recommend you use `bun` to manage the project. However, you can use `npm`, `pnpm` or `yarn` as well.
 
 ### Setup
 
