@@ -106,9 +106,11 @@ jobs:
         run: |
           tag=${{ steps.tag.outputs.tag }}
           if [[ $(git status --porcelain) ]]; then
+            cd $GITHUB_WORKSPACE
+            git checkout main
             git config --local user.email "github-actions[bot]@users.noreply.github.com"
             git config --local user.name "github-actions[bot]"
-            git checkout main
+            sed -i "s/\"version\": \".*\"/\"version\": \"${tag:1}\"/g" app.json
             git add app.json
             git commit -m "chore: bump version to $tag"
             git push
