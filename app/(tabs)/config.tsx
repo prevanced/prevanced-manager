@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Button, Input, Label, View, YStack, XStack, Paragraph, ScrollView } from "tamagui";
+import { useToastController, useToastState } from '@tamagui/toast';
 
 export default function TabTwoScreen() {
+  const toast = useToastController();
   const [ghRepo, setGhRepo] = useState("revanced-apks/build-apps");
   const [ghReleaseTag, setGhReleaseTag] = useState("latest");
 
@@ -11,6 +13,10 @@ export default function TabTwoScreen() {
   
     setGhRepo(default_ghRepo);
     setGhReleaseTag(default_tag);
+
+    toast.show("Restored. Don't forget `Apply changes`", {
+      native: true,
+    })
   };
   
   const applyChanges = () => {
