@@ -14,6 +14,9 @@ import {
 } from "tamagui";
 import { useEffect, useState } from "react";
 import { Linking } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useToastController } from "@tamagui/toast";
+import { PrevancedOptions } from "./config";
 
 type Release = {
   name: string;
@@ -27,13 +30,38 @@ export default function TabOneScreen() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [releases, setReleases] = useState<Release[]>([]);
+  const toast = useToastController();
 
   useEffect(() => {
     async function fetchReleases() {
       setLoading(true);
+      const awaitedOptions = await AsyncStorage.getItem("prevancedOptions");
+      const prevancedOptions: PrevancedOptions | null = JSON.parse(awaitedOptions || "");
+      let ghReleaseUrl;
+      if (prevancedOptions && prevancedOptions.ghRepo && prevancedOptions.ghReleaseTag) {
+        if (prevancedOptions.ghReleaseTag == "latest") {
+          ghReleaseUrl = `https://api.github.com/repos/${prevancedOptions.ghRepo}/releases/latest`;
+        } else {
+          ghReleaseUrl = `https://api.github.com/repos/${prevancedOptions.ghRepo}/releases/tags/${prevancedOptions.ghReleaseTag}`;
+        }
+      } else {
+        ghReleaseUrl = "https://api.github.com/repos/Revanced-APKs/build-apps/releases/latest";
+      }
+      if (!ghReleaseUrl) {
+        toast.show("Empty GitHub release URL", {
+          native: true,
+        });
+        return;
+      }
       const response = await fetch(
-        "https://api.github.com/repos/Revanced-APKs/build-apps/releases/latest"
+        ghReleaseUrl
       );
+      if (!response.ok) {
+        toast.show(`Failed to fetch releases from ${prevancedOptions?.ghRepo}`, {
+          native: true,
+        });
+        return;
+      }
       const data = await response.json();
       data.assets && setReleases(data.assets.filter((asset: Release) => !asset.name.match("magisk")).map((asset: Release) => {
         let name = asset.name.split("-")[0];
@@ -52,9 +80,9 @@ export default function TabOneScreen() {
           browser_download_url: asset.browser_download_url,
         };
       }));
-      setLoading(false);
     }
     fetchReleases();
+    setLoading(false);
   }, []);
   return (
     <YStack padding="$2">
@@ -73,7 +101,9 @@ export default function TabOneScreen() {
       </View>
       <View alignItems="center">
         {loading ? (
-          <Spinner size="large" />
+          <View alignItems="center" justifyContent="center">
+            <Spinner size="large" />
+          </View>
         ) : (
           <YGroup alignSelf="center" size="$4" paddingBottom="$12">
             <ScrollView>
