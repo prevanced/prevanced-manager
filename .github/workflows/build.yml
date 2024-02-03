@@ -54,13 +54,13 @@ jobs:
         run: |
           if [[ ${{ github.ref_name }} == v* ]]; then
             echo "tag=${{ github.ref_name }}" >> $GITHUB_OUTPUT
-            echo "prelease=false" >> $GITHUB_OUTPUT
+            echo "prerelease=false" >> $GITHUB_OUTPUT
           elif [[ ${{ github.ref_name }} == stable ]]; then
             echo "tag=$(date +'v%y.%m.%d.%H%M')" >> $GITHUB_OUTPUT
-            echo "prelease=false" >> $GITHUB_OUTPUT
+            echo "prerelease=false" >> $GITHUB_OUTPUT
           else
             echo "tag=$(date +'v%y.%m.%d.%H%M%S')" >> $GITHUB_OUTPUT
-            echo "prelease=true" >> $GITHUB_OUTPUT
+            echo "prerelease=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Rename APK
