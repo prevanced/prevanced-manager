@@ -80,7 +80,8 @@ jobs:
             -Pandroid.injected.signing.store.file=$GITHUB_WORKSPACE/android/app/keystore.jks \
             -Pandroid.injected.signing.store.password="${{ secrets.STORE_PASSWORD }}" \
             -Pandroid.injected.signing.key.alias="key0" \
-            -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}"
+            -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}" \
+            -Pandroid.enableProguardInReleaseBuilds=true
 
 
       - name: Rename APK
@@ -104,6 +105,8 @@ jobs:
         run: |
           tag=${{ steps.tag.outputs.tag }}
           if [[ $(git status --porcelain) ]]; then
+            git config --local user.email "github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
             git add app.json
             git commit -m "chore: bump version to $tag"
             git push
