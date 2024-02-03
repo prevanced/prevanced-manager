@@ -10,6 +10,7 @@ export default function TabLayout() {
       headerTitleStyle: {
         fontSize: 20,
       },
+      tabBarHideOnKeyboard: true,
     }}>
       <Tabs.Screen
         name='index'
