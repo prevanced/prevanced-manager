@@ -11,6 +11,7 @@ A simple android app to download and install latest release from [ReVanced APKs]
 ## Features
 
 - Download the latest ReVanced APKs directly from the app.
+- Change GitHub repository for fetching release.
 
 ## Installation
 
