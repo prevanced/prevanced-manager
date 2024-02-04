@@ -48,8 +48,8 @@ We recommend you use `bun` to manage the project. However, you can use `npm`, `p
 
 ### Building
 
-1. Run `bun run build:android` to build the APK for android.
-2. Output APK will be in `android/app/build/outputs/apk/release/`
+1. Run `bun run build:android && ./android/gradlew build` to build the APK for android.
+2. Output APK will be in `android/app/build/outputs/apk/debug/`
 
 ## License
 
