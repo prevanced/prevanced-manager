@@ -86,13 +86,9 @@ export default function TabOneScreen() {
               brand = match[2];
               version = match[3];
               arch = match[4];
-
-              if (brand != "revanced") {
-                name = name + " " + brand;
-              }
-
-              if (arch !== "all") {
-                name = name + " " + arch;
+              // twitter version fix
+              if (arch.split(".").length > 1) {
+                arch = arch.split(".").reverse()[0].split("-").reverse()[0];
               }
 
             } else {
@@ -107,14 +103,19 @@ export default function TabOneScreen() {
                   version = version + "...";
                 }
                 arch = match[4];
+              }
+            }
 
-                if (brand != "revanced") {
-                  name = name + " " + brand;
-                }
+            if (arch !== "") {
+              if (arch !== "all") {
+                name = name + " " + arch;
+              }
+            }
 
-                if (arch !== "all") {
-                  name = name + " " + arch;
-                }
+            if (brand !== "") {
+              // for patches like extended and ReX
+              if (brand != "revanced") {
+                name = name + " " + brand;
               }
             }
 
