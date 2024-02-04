@@ -1,6 +1,12 @@
+<div align="center">
+
+<img height="128px" src="https://github.com/prevanced/prevanced-manager/assets/63334479/3bfedf15-9852-4447-af98-c7e38d6cf93e" />
+  
 # PreVanced Manager
 
 A simple android app to download and install latest release from [ReVanced APKs](https://github.com/revanced-apks/build-apps).
+
+</div>
 
 ## Features
 
