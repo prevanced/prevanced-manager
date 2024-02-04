@@ -21,6 +21,7 @@ import { RefreshCcwDot } from "@tamagui/lucide-icons";
 
 type Release = {
   name: string;
+  brand: string;
   fileName: string;
   version: string;
   arch: string;
@@ -76,28 +77,40 @@ export default function TabOneScreen() {
             let name = "";
             let version = "";
             let arch = "";
-            const regex = /(.+)-revanced-(v[\d.]+)-(\S+)\.apk/;
+            let brand = "";
+            const regex = /(.+)-([a-z]+)-(v[\d.]+)-(\S+)\.apk/;
             const match = asset.name.match(regex);
 
             if (match) {
               name = match[1].charAt(0).toUpperCase() + match[1].slice(1);
-              version = match[2];
-              arch = match[3];
+              brand = match[2];
+              version = match[3];
+              arch = match[4];
+
+              if (brand != "revanced") {
+                name = name + " " + brand;
+              }
 
               if (arch !== "all") {
                 name = name + " " + arch;
               }
+
             } else {
-              const regex = /(.+)-revanced-(v[\S.]+)-(\S+)\.apk/;
+              const regex = /(.+)-([a-z]+)-(v[\S.]+)-(\S+)\.apk/;
               const match = asset.name.match(regex);
               if (match) {
                 name = match[1].charAt(0).toUpperCase() + match[1].slice(1);
-                version = match[2];
+                brand = match[2];
+                version = match[3];
                 if (version.length > 30) {
                   version = version.slice(0, 30);
                   version = version + "...";
                 }
-                arch = match[3];
+                arch = match[4];
+
+                if (brand != "revanced") {
+                  name = name + " " + brand;
+                }
 
                 if (arch !== "all") {
                   name = name + " " + arch;
@@ -107,6 +120,7 @@ export default function TabOneScreen() {
 
             return {
               name,
+              brand,
               fileName: asset.name,
               version,
               arch,
