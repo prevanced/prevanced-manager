@@ -14,8 +14,7 @@ Download the latest release from [here](https://github.com/prevanced/prevanced-m
 
 |Manager|Options|
 |---|---|
-|![Screenshot_2024_02_03_15_41_57_94_4ed0fa99112b9393c8307694b9754972](https://github.com/prevanced/prevanced-manager/assets/63334479/735dc44b-d5e6-4225-9e53-3c9086727f40)|![Screenshot_2024_02_03_15_45_46_12_4ed0fa99112b9393c8307694b9754972](https://github.com/prevanced/prevanced-manager/assets/63334479/28c114e9-f08e-4d7f-94ca-ef56dc4fc02d)
-|
+|![Screenshot_2024_02_03_15_41_57_94_4ed0fa99112b9393c8307694b9754972](https://github.com/prevanced/prevanced-manager/assets/63334479/735dc44b-d5e6-4225-9e53-3c9086727f40)|![Screenshot_2024_02_03_15_45_46_12_4ed0fa99112b9393c8307694b9754972](https://github.com/prevanced/prevanced-manager/assets/63334479/28c114e9-f08e-4d7f-94ca-ef56dc4fc02d)|
 
 ## Todo
 
