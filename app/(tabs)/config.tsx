@@ -11,11 +11,7 @@ import {
 } from "tamagui";
 import { useToastController } from "@tamagui/toast";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-export type PrevancedOptions = {
-  ghRepo: string;
-  ghReleaseTag: string;
-};
+import { PrevancedOptions } from "../../types/prevanced";
 
 export default function TabTwoScreen() {
   const toast = useToastController();
