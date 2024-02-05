@@ -66,16 +66,17 @@ export async function fetchReleases(): Promise<Release[]> {
               }
             }
   
+            if (brand !== "") {
+              brand = brand.charAt(0).toUpperCase() + brand.slice(1);
+              // for patches like extended and ReX
+              if (brand != "Revanced") {
+                name = name + " " + brand;
+              }
+            }
+
             if (arch !== "") {
               if (arch !== "all") {
                 name = name + " " + arch;
-              }
-            }
-  
-            if (brand !== "") {
-              // for patches like extended and ReX
-              if (brand != "revanced") {
-                name = name + " " + brand;
               }
             }
   
