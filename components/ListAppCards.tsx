@@ -16,7 +16,7 @@ function ListAppCards(props: ListAppCardsProps) {
         alignSelf="center"
         size="$4"
         paddingTop="$2"
-        paddingBottom="$19"
+        paddingBottom="$20"
         gap="$3"
       >
         {releases
