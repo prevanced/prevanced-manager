@@ -1,6 +1,6 @@
 import { RefreshCcwDot } from "@tamagui/lucide-icons";
 import { useEffect, useState } from "react";
-import { Button, Input, Spinner, View, XStack, YStack } from "tamagui";
+import { Button, Input, Spinner, View, XStack, YStack, Text } from "tamagui";
 import ListAppCards from "../../components/ListAppCards";
 import { Release } from "../../types/release";
 import { prepareLoading } from "../../utils/load";
@@ -50,7 +50,6 @@ export default function TabOneScreen() {
               paddingHorizontal="$4"
               paddingVertical="$3"
               borderRadius="$12"
-              borderWidth="$1"
               onChangeText={setSearch}
               value={search}
             />
@@ -68,6 +67,12 @@ export default function TabOneScreen() {
               <RefreshCcwDot size="$1" />
             </Button>
           </XStack>
+          {
+            releases && <XStack p="$2" mt="$2" gap="$2" justifyContent="center" alignContent="center" width="100%" overflow="hidden" borderRadius="$12" backgroundColor="$blue1" theme="blue_alt1" >
+              <Text>Release {releases.name}</Text>
+              <Text>on {new Date(releases.published_at).toLocaleDateString()}</Text>
+            </XStack>
+          }
           <View alignItems="center">
             {releases && releases.assets && <ListAppCards releases={releases.assets} search={search} />}
           </View>
