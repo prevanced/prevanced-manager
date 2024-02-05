@@ -12,9 +12,6 @@ export default function TabLayout() {
         },
         tabBarHideOnKeyboard: true,
         tabBarShowLabel: true,
-        tabBarBadgeStyle: {
-          backgroundColor: "red",
-        },
         tabBarLabelPosition: "beside-icon",
       }}
     >

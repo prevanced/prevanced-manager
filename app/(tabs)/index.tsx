@@ -10,6 +10,7 @@ import { fetchReleases } from "../../utils/release";
 export default function TabOneScreen() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [releases, setReleases] = useState<Release[]>([]);
   const toast = useToastController();
 
@@ -25,7 +26,7 @@ export default function TabOneScreen() {
         native: true,
       });
     }
-  }
+  };
 
   useEffect(() => {
     fetchAndSetReleases();
@@ -45,19 +46,17 @@ export default function TabOneScreen() {
         </View>
       ) : (
         <>
-          <View alignItems="center">
-            <Input
+            {isSearchVisible && <Input
               placeholder="Search"
               width="100%"
               paddingStart="$6"
               paddingHorizontal="$4"
               paddingVertical="$3"
-              borderRadius="$2"
+              borderRadius="$12"
               borderWidth="$1"
               onChangeText={setSearch}
               value={search}
-            />
-          </View>
+            />}
           <View alignItems="center">
             <ListAppCards releases={releases} search={search} />
           </View>

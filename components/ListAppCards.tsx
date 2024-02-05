@@ -11,8 +11,8 @@ type ListAppCardsProps = {
 function ListAppCards(props: ListAppCardsProps) {
   const { releases, search } = props;
   return (
-    <YGroup alignSelf="center" size="$4" paddingBottom="$12">
       <ScrollView>
+    <YGroup alignSelf="center" size="$4" paddingTop="$2" paddingBottom="$12" gap="$3">
         {releases
           .filter((release) =>
             release.fileName.toLowerCase().includes(search.toLowerCase())
@@ -21,8 +21,8 @@ function ListAppCards(props: ListAppCardsProps) {
           .map((release, index) => {
             return <DisplayApp key={index} release={release} />;
           })}
-      </ScrollView>
     </YGroup>
+      </ScrollView>
   );
 }
 
