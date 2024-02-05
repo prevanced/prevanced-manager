@@ -1,7 +1,7 @@
 import { RefreshCcwDot } from "@tamagui/lucide-icons";
 import { useToastController } from "@tamagui/toast";
 import { useEffect, useState } from "react";
-import { Button, Input, Spinner, View, YStack } from "tamagui";
+import { Button, Input, Spinner, View, XStack, YStack } from "tamagui";
 import ListAppCards from "../../components/ListAppCards";
 import { Release } from "../../types/release";
 import { prepareLoading } from "../../utils/load";
@@ -10,7 +10,6 @@ import { fetchReleases } from "../../utils/release";
 export default function TabOneScreen() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [releases, setReleases] = useState<Release[]>([]);
   const toast = useToastController();
 
@@ -46,32 +45,34 @@ export default function TabOneScreen() {
         </View>
       ) : (
         <>
-            {isSearchVisible && <Input
+          <XStack gap="$2" alignItems="center" alignSelf="center" width="100%">
+            <Input
               placeholder="Search"
-              width="100%"
               paddingStart="$6"
+              width="85%"
               paddingHorizontal="$4"
               paddingVertical="$3"
               borderRadius="$12"
               borderWidth="$1"
               onChangeText={setSearch}
               value={search}
-            />}
+            />
+            <Button
+              onPress={fetchAndSetReleases}
+              width="13%"
+              alignSelf="center"
+              padding="$2"
+              size="$4"
+              borderRadius="$12"
+              accessibilityLabel="Refresh"
+              mr="$3"
+            >
+             <RefreshCcwDot size="$1" color="white" />
+            </Button>
+          </XStack>
           <View alignItems="center">
             <ListAppCards releases={releases} search={search} />
           </View>
-          <Button
-            theme="blue_active"
-            onPress={fetchAndSetReleases}
-            position="absolute"
-            bottom="8%"
-            right="5%"
-            padding="$3"
-            size="$5"
-            borderRadius="$12"
-          >
-            <RefreshCcwDot color="white" />
-          </Button>
         </>
       )}
     </YStack>
