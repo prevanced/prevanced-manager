@@ -1,16 +1,16 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useToastController } from "@tamagui/toast";
 import { useEffect, useState } from "react";
 import {
   Button,
   Input,
   Label,
-  View,
-  YStack,
-  XStack,
   Paragraph,
   ScrollView,
+  View,
+  XStack,
+  YStack,
 } from "tamagui";
-import { useToastController } from "@tamagui/toast";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PrevancedOptions } from "../../types/prevanced";
 
 export default function TabTwoScreen() {

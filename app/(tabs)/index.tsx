@@ -1,10 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { RefreshCcwDot } from "@tamagui/lucide-icons";
 import { useToastController } from "@tamagui/toast";
 import { useEffect, useState } from "react";
 import { Button, Input, Spinner, View, YStack } from "tamagui";
 import ListAppCards from "../../components/ListAppCards";
 import { Release } from "../../types/release";
+import { prepareLoading } from "../../utils/load";
 import { fetchReleases } from "../../utils/release";
 
 export default function TabOneScreen() {
@@ -13,23 +13,24 @@ export default function TabOneScreen() {
   const [releases, setReleases] = useState<Release[]>([]);
   const toast = useToastController();
 
-  useEffect(() => {
-    async function initRelease() {
-      setLoading(true);
-      try {
-        const fetchedReleases = await fetchReleases();
-        setReleases(fetchedReleases);
-      } catch (error: any) {
-        toast.show(error, {
-          native: true,
-        });
-      } finally {
-        setLoading(false);
-      }
+  const withLoading = async (asyncFunction: () => Promise<Release[]>) =>
+    prepareLoading(asyncFunction, setLoading);
+
+  const fetchAndSetReleases = async () => {
+    try {
+      const fetchedReleases = await withLoading(fetchReleases);
+      setReleases(fetchedReleases);
+    } catch (error: unknown) {
+      toast.show(String(error), {
+        native: true,
+      });
     }
-    initRelease();
+  }
+
+  useEffect(() => {
+    fetchAndSetReleases();
   }, []);
-  
+
   return (
     <YStack padding="$2">
       {loading ? (
@@ -62,13 +63,7 @@ export default function TabOneScreen() {
           </View>
           <Button
             theme="blue_active"
-            onPress={() => {
-              setLoading(true);
-              Promise.all([fetchReleases()]).then(() => {
-                setLoading(false);
-                console.log("Refreshed");
-              });
-            }}
+            onPress={fetchAndSetReleases}
             position="absolute"
             bottom="8%"
             right="5%"
