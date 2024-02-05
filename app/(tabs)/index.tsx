@@ -16,11 +16,20 @@ export default function TabOneScreen() {
   useEffect(() => {
     async function initRelease() {
       setLoading(true);
-      await fetchReleases({ setReleases, toast });
-      setLoading(false);
+      try {
+        const fetchedReleases = await fetchReleases();
+        setReleases(fetchedReleases);
+      } catch (error: any) {
+        toast.show(error, {
+          native: true,
+        });
+      } finally {
+        setLoading(false);
+      }
     }
     initRelease();
   }, []);
+  
   return (
     <YStack padding="$2">
       {loading ? (
@@ -55,7 +64,7 @@ export default function TabOneScreen() {
             theme="blue_active"
             onPress={() => {
               setLoading(true);
-              Promise.all([fetchReleases({ setReleases, toast })]).then(() => {
+              Promise.all([fetchReleases()]).then(() => {
                 setLoading(false);
                 console.log("Refreshed");
               });
