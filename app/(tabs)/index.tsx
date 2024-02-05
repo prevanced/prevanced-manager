@@ -47,8 +47,9 @@ export default function TabOneScreen() {
               placeholder="Search"
               paddingStart="$6"
               width="85%"
+              size="$3"
               paddingHorizontal="$4"
-              paddingVertical="$3"
+              paddingVertical="$2"
               borderRadius="$12"
               onChangeText={setSearch}
               value={search}
@@ -68,7 +69,7 @@ export default function TabOneScreen() {
             </Button>
           </XStack>
           {
-            releases && <XStack p="$2" mt="$2" gap="$2" justifyContent="center" alignContent="center" width="100%" overflow="hidden" borderRadius="$12" backgroundColor="$blue1" theme="blue_alt1" >
+            releases && <XStack p="$2" mt="$2" mb="$1.5" gap="$2" justifyContent="center" alignContent="center" width="100%" overflow="hidden" borderRadius="$12" backgroundColor="$blue1" theme="blue_alt1" >
               <Text>Release {releases.name}</Text>
               <Text>on {new Date(releases.published_at).toLocaleDateString()}</Text>
             </XStack>
