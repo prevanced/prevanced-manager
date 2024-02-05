@@ -1,4 +1,4 @@
-import { Home, Settings2 } from "@tamagui/lucide-icons";
+import { Home, Download,Settings2 } from "@tamagui/lucide-icons";
 import { Tabs } from "expo-router";
 
 export default function TabLayout() {
@@ -11,17 +11,19 @@ export default function TabLayout() {
           fontSize: 20,
         },
         tabBarHideOnKeyboard: true,
-        tabBarStyle: {
-          paddingBottom: 6,
-          height: 55,
+        tabBarShowLabel: true,
+        tabBarBadgeStyle: {
+          backgroundColor: "red",
         },
+        tabBarLabelPosition: "beside-icon",
       }}
     >
       <Tabs.Screen
         name="index"
         options={{
-          title: "PreVanced Manager",
-          tabBarIcon: ({ color }) => <Home color={color} />,
+          title: "Downloads",
+          headerTitle: "PreVanced Manager",
+          tabBarIcon: ({ color }) => <Download color={color} />,
         }}
       />
       <Tabs.Screen
