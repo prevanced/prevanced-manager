@@ -10,9 +10,9 @@ import { showToast } from "../../utils";
 export default function TabOneScreen() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const [releases, setReleases] = useState<Release[]>([]);
+  const [releases, setReleases] = useState<Release>();
 
-  const withLoading = async (asyncFunction: () => Promise<Release[]>) =>
+  const withLoading = async (asyncFunction: () => Promise<Release>) =>
     prepareLoading(asyncFunction, setLoading);
 
   const fetchAndSetReleases = async () => {
@@ -69,7 +69,7 @@ export default function TabOneScreen() {
             </Button>
           </XStack>
           <View alignItems="center">
-            <ListAppCards releases={releases} search={search} />
+            {releases && releases.assets && <ListAppCards releases={releases.assets} search={search} />}
           </View>
         </>
       )}

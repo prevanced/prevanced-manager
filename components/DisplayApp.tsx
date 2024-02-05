@@ -9,13 +9,13 @@ import {
   Separator,
   View,
 } from "tamagui";
-import { Release } from "../types/release";
+import { Assets, Release } from "../types/release";
 import { Linking } from "react-native";
 import { DownloadCloud, Copy } from "@tamagui/lucide-icons";
 import { copyToClipboard, showToast } from "../utils";
 
 type DisplayAppProps = {
-  release: Release;
+  release: Assets;
 };
 
 export default function DisplayApp(props: DisplayAppProps) {

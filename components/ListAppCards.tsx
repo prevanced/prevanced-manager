@@ -1,10 +1,10 @@
 import React from "react";
 import { ScrollView, YGroup } from "tamagui";
 import DisplayApp from "./DisplayApp";
-import { Release } from "../types/release";
+import { Assets, Release } from "../types/release";
 
 type ListAppCardsProps = {
-  releases: Release[];
+  releases: Assets[];
   search: string;
 };
 
