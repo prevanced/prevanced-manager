@@ -1,5 +1,4 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useToastController } from "@tamagui/toast";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -12,9 +11,9 @@ import {
   YStack,
 } from "tamagui";
 import { PrevancedOptions } from "../../types/prevanced";
+import { showToast } from "../../utils/utils";
 
 export default function TabTwoScreen() {
-  const toast = useToastController();
   const [prevancedOptions, setPrevancedOptions] = useState<PrevancedOptions>({
     ghRepo: "revanced-apks/build-apps",
     ghReleaseTag: "latest",
@@ -40,9 +39,7 @@ export default function TabTwoScreen() {
 
     setPrevancedOptions(default_options);
 
-    toast.show("Restored. Don't forget `Apply changes`", {
-      native: true,
-    });
+    showToast("Restored. Don't forget `Apply changes`");
   };
 
   const applyChanges = () => {
@@ -52,9 +49,7 @@ export default function TabTwoScreen() {
         JSON.stringify(prevancedOptions)
       ),
     ]).then(() => {
-      toast.show("Changes applied", {
-        native: true,
-      });
+      showToast("Changes applied");
     });
   };
 

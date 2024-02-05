@@ -1,17 +1,16 @@
 import { RefreshCcwDot } from "@tamagui/lucide-icons";
-import { useToastController } from "@tamagui/toast";
 import { useEffect, useState } from "react";
 import { Button, Input, Spinner, View, XStack, YStack } from "tamagui";
 import ListAppCards from "../../components/ListAppCards";
 import { Release } from "../../types/release";
 import { prepareLoading } from "../../utils/load";
 import { fetchReleases } from "../../utils/release";
+import { showToast } from "../../utils/utils";
 
 export default function TabOneScreen() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
   const [releases, setReleases] = useState<Release[]>([]);
-  const toast = useToastController();
 
   const withLoading = async (asyncFunction: () => Promise<Release[]>) =>
     prepareLoading(asyncFunction, setLoading);
@@ -21,9 +20,7 @@ export default function TabOneScreen() {
       const fetchedReleases = await withLoading(fetchReleases);
       setReleases(fetchedReleases);
     } catch (error: unknown) {
-      toast.show(String(error), {
-        native: true,
-      });
+      showToast(String(error));
     }
   };
 

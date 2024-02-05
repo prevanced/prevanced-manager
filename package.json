@@ -17,11 +17,11 @@
   "dependencies": {
     "@expo/metro-runtime": "3.1.1",
     "@react-native-async-storage/async-storage": "^1.21.0",
+    "@react-native-clipboard/clipboard": "^1.13.2",
     "@react-navigation/native": "^6.0.2",
     "@tamagui/config": "^1.88.19",
     "@tamagui/lucide-icons": "^1.88.19",
     "@tamagui/metro-plugin": "^1.88.19",
-    "@tamagui/toast": "^1.88.21",
     "babel-preset-expo": "^10.0.1",
     "burnt": "^0.12.2",
     "expo": "~50.0.5",

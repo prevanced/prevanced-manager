@@ -12,6 +12,7 @@ import {
 import { Release } from "../types/release";
 import { Linking } from "react-native";
 import { DownloadCloud, Copy } from "@tamagui/lucide-icons";
+import { copyToClipboard, showToast } from "../utils/utils";
 
 type DisplayAppProps = {
   release: Release;
@@ -50,7 +51,10 @@ export default function DisplayApp(props: DisplayAppProps) {
               theme="blue_alt1"
               width="15%"
               padding="$2"
-              onPress={() => console.log("Copy URL")}
+              onPress={() => {
+                copyToClipboard(release.browser_download_url);
+                showToast("Link copied to clipboard");
+              }}
             >
               <Copy size="$1" />
             </Button>
