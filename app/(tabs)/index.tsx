@@ -64,10 +64,11 @@ export default function TabOneScreen() {
               padding="$2"
               size="$4"
               borderRadius="$12"
+              bordered
               accessibilityLabel="Refresh"
               mr="$3"
             >
-             <RefreshCcwDot size="$1" color="white" />
+             <RefreshCcwDot size="$1" />
             </Button>
           </XStack>
           <View alignItems="center">
