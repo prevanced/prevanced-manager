@@ -5,7 +5,7 @@ import ListAppCards from "../../components/ListAppCards";
 import { Release } from "../../types/release";
 import { prepareLoading } from "../../utils/load";
 import { fetchReleases } from "../../utils/release";
-import { showToast } from "../../utils/utils";
+import { showToast } from "../../utils";
 
 export default function TabOneScreen() {
   const [search, setSearch] = useState("");
@@ -65,7 +65,7 @@ export default function TabOneScreen() {
               accessibilityLabel="Refresh"
               mr="$3"
             >
-             <RefreshCcwDot size="$1" />
+              <RefreshCcwDot size="$1" />
             </Button>
           </XStack>
           <View alignItems="center">

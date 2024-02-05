@@ -12,7 +12,7 @@ import {
 import { Release } from "../types/release";
 import { Linking } from "react-native";
 import { DownloadCloud, Copy } from "@tamagui/lucide-icons";
-import { copyToClipboard, showToast } from "../utils/utils";
+import { copyToClipboard, showToast } from "../utils";
 
 type DisplayAppProps = {
   release: Release;
@@ -23,7 +23,7 @@ export default function DisplayApp(props: DisplayAppProps) {
   return (
     <YGroup.Item>
       <View>
-        <Card bordered size="$2" paddingHorizontal="$2" paddingBottom="$3" >
+        <Card bordered size="$2" paddingHorizontal="$2" paddingBottom="$3">
           <Card.Header width="100%">
             <H3>{release.name}</H3>
             <Paragraph theme="alt1">{release.fileName}</Paragraph>

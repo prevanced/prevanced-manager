@@ -11,7 +11,7 @@ import {
   YStack,
 } from "tamagui";
 import { PrevancedOptions } from "../../types/prevanced";
-import { showToast } from "../../utils/utils";
+import { showToast } from "../../utils";
 
 export default function TabTwoScreen() {
   const [prevancedOptions, setPrevancedOptions] = useState<PrevancedOptions>({
