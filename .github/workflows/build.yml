@@ -98,7 +98,6 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           sed -i "s/\"version\": \".*\"/\"version\": \"${tag:1}\"/g" app.json
-          git add app.json
-          git add android/app/build.gradle
+          git add app.json android/app/build.gradle
           git commit -m "chore: bump version to $tag"
           git push origin main
