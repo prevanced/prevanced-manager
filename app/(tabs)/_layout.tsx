@@ -1,4 +1,4 @@
-import { Home, Download,Settings2 } from "@tamagui/lucide-icons";
+import { Download, Settings2 } from "@tamagui/lucide-icons";
 import { Tabs } from "expo-router";
 
 export default function TabLayout() {
