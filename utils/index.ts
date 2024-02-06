@@ -69,7 +69,7 @@ async function checkForUpdate() {
   }
   if (shouldCheckForUpdate) {
     const prevancedUpdate = await checkAppUpdate();
-    const alertBody = `PreVanced Manager ${prevancedUpdate.release.tag_name} is available.
+    const alertBody = `PreVanced Manager ${prevancedUpdate.release.tag_name}
 
     ${prevancedUpdate.release.body}
     `;
