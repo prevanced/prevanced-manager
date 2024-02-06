@@ -6,6 +6,7 @@ import { Release } from "../../types/release";
 import { prepareLoading } from "../../utils/load";
 import { fetchReleases } from "../../utils/release";
 import { showToast } from "../../utils";
+import { Alert } from "react-native";
 
 export default function TabOneScreen() {
   const [search, setSearch] = useState("");
@@ -20,7 +21,7 @@ export default function TabOneScreen() {
       const fetchedReleases = await withLoading(fetchReleases);
       setReleases(fetchedReleases);
     } catch (error: unknown) {
-      showToast(String(error));
+      Alert.alert("Error ⛔", String(error));
     }
   };
 
