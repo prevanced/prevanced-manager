@@ -3,4 +3,6 @@
   <color name="iconBackground">#ffffff</color>
   <color name="colorPrimary">#023c69</color>
   <color name="colorPrimaryDark">#ffffff</color>
+  <color name="alert_background">#ffffff</color>
+  <color name="alert_text">#0f2438</color>
 </resources>

@@ -1,1 +1,4 @@
-<resources/>
+<resources>
+  <color name="alert_background">#393947</color>
+  <color name="alert_text">#ffffff</color>
+</resources>
