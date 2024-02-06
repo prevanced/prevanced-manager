@@ -58,7 +58,7 @@ async function checkForUpdate() {
     `;
     if (prevancedUpdate.isUpdateAvailable) {
 
-      Alert.alert("Update Available", alertBody, [
+      Alert.alert("App Update Available", alertBody, [
         {
           text: "Update",
           onPress: () => {
