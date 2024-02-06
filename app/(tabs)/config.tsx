@@ -12,11 +12,13 @@ import {
 } from "tamagui";
 import { PrevancedOptions } from "../../types/prevanced";
 import { showToast } from "../../utils";
+import SwitchWithLabel from "../../components/SwitchWithLabel";
 
 export default function TabTwoScreen() {
   const [prevancedOptions, setPrevancedOptions] = useState<PrevancedOptions>({
     ghRepo: "revanced-apks/build-apps",
     ghReleaseTag: "latest",
+    prevancedManagerUpdate: true,
   });
 
   useEffect(() => {
@@ -35,6 +37,7 @@ export default function TabTwoScreen() {
     const default_options: PrevancedOptions = {
       ghRepo: "revanced-apks/build-apps",
       ghReleaseTag: "latest",
+      prevancedManagerUpdate: true,
     };
 
     setPrevancedOptions(default_options);
@@ -87,6 +90,26 @@ export default function TabTwoScreen() {
               value={prevancedOptions.ghReleaseTag}
               onChangeText={(text) =>
                 setPrevancedOptions({ ...prevancedOptions, ghReleaseTag: text })
+              }
+            />
+          </YStack>
+          <YStack gap="$2">
+            <Label fontSize="$5">Updates</Label>
+            <Paragraph theme="alt1">
+              Check for updates on app start. We recommend keep this enabled as
+              new features and bug fixes are added frequently.
+            </Paragraph>
+            <SwitchWithLabel
+              label="PreVanced Manager Update"
+              id="prevancedManagerUpdateToggle"
+              labelSize="$4"
+              checkboxSize="$3"
+              checked={prevancedOptions.prevancedManagerUpdate}
+              onCheckedChange={(checked) =>
+                setPrevancedOptions({
+                  ...prevancedOptions,
+                  prevancedManagerUpdate: checked,
+                })
               }
             />
           </YStack>
