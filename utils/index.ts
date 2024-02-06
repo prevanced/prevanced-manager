@@ -1,7 +1,7 @@
 import Clipboard from "@react-native-clipboard/clipboard";
 import { Alert, Linking, ToastAndroid } from "react-native";
 import { PreVancedUpdateType, Release } from "../types/release";
-import { expo } from "../app.json";
+import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PrevancedOptions } from "../types/prevanced";
 
@@ -15,7 +15,9 @@ const showToast = (message: string) => {
 
 const checkAppUpdate = async (): Promise<PreVancedUpdateType> => {
   try {
-    const currentVersion = expo.version;
+    const currentVersion = DeviceInfo.getVersion();
+    const deviceABIs = await DeviceInfo.supportedAbis();
+    const deviceArch = deviceABIs[0];
 
     if (!currentVersion) {
       throw new Error("Failed to get the current version");
@@ -36,6 +38,7 @@ const checkAppUpdate = async (): Promise<PreVancedUpdateType> => {
       return {
         version: latestVersion,
         release: data,
+        arch: deviceArch,
         isUpdateAvailable: true,
       };
     } else {
@@ -43,6 +46,7 @@ const checkAppUpdate = async (): Promise<PreVancedUpdateType> => {
       return {
         version: currentVersion,
         release: data,
+        arch: deviceArch,
         isUpdateAvailable: false,
       };
     }
@@ -74,8 +78,19 @@ async function checkForUpdate() {
         {
           text: "Update",
           onPress: () => {
-            showToast("Opening the update page...");
-            Linking.openURL(prevancedUpdate.release.html_url);
+            let assetUrl;
+            assetUrl = prevancedUpdate.release.assets.find(
+              (asset) =>
+                asset.name.includes(prevancedUpdate.arch) &&
+                asset.name.includes("apk")
+            )?.browser_download_url;
+            if (assetUrl) {
+              showToast("Downloading update...");
+              Linking.openURL(assetUrl);
+            } else {
+              showToast("Opening GitHub release page...");
+              Linking.openURL(prevancedUpdate.release.html_url);
+            }
           },
         },
         {

@@ -25,8 +25,18 @@ export type Release = {
     node_id: string;
 };
 
+type githubAsset = {
+    name: string;
+    browser_download_url: string;
+};
+
+export type PreVancedUpdate = Exclude<PreVancedUpdateType, "assets"> & {
+    assets: githubAsset[];
+};
+
 export type PreVancedUpdateType = {
     version: string;
     release: Release;
     isUpdateAvailable: boolean;
+    arch: string;
 };
