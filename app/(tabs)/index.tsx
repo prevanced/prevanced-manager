@@ -5,7 +5,7 @@ import ListAppCards from "../../components/ListAppCards";
 import { Release } from "../../types/release";
 import { prepareLoading } from "../../utils/load";
 import { fetchReleases } from "../../utils/release";
-import { showToast } from "../../utils";
+import { checkForUpdate, showToast } from "../../utils";
 import { Alert } from "react-native";
 
 export default function TabOneScreen() {
@@ -27,6 +27,7 @@ export default function TabOneScreen() {
 
   useEffect(() => {
     fetchAndSetReleases();
+    checkForUpdate().catch((error) => showToast(String(error)));
   }, []);
 
   return (

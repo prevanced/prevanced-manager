@@ -24,3 +24,9 @@ export type Release = {
     id: number;
     node_id: string;
 };
+
+export type PreVancedUpdateType = {
+    version: string;
+    release: Release;
+    isUpdateAvailable: boolean;
+};
