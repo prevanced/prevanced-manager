@@ -16,7 +16,8 @@
     <item name="android:windowBackground">@drawable/splashscreen</item>
   </style>
   <style name="AlertDialogTheme" parent="Base.Theme.AppCompat.Light.Dialog.Alert">
-    <item name="android:background">@color/alert_background</item>
+    <item name="android:windowBackground">@android:color/transparent</item>
+    <item name="android:background">@drawable/rounded_dialog_background</item>
     <item name="android:textColor">@color/alert_text</item>
     <item name="android:textColorPrimary">@color/alert_text</item>
   </style>
