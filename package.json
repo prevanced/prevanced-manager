@@ -1,6 +1,6 @@
 {
   "name": "prevanced",
-  "main": "expo-router/entry",
+  "main": "index.ts",
   "version": "0.0.1",
   "scripts": {
     "upgrade:tamagui": "bun up '*tamagui*'@latest '@tamagui/*'@latest",

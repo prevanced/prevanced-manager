@@ -65,10 +65,6 @@ function RootLayoutNav() {
 
   useEffect(() => {
     handlePermission();
-    // Register background handler
-    messaging().setBackgroundMessageHandler(async (_) => {
-      console.log("Message handled in the background!");
-    });
     const unsubscribe = messaging().onMessage(async (remoteMessage) => {
       if (remoteMessage.notification?.title) {
         let title = remoteMessage.notification?.title;
