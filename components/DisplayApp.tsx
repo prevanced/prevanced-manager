@@ -9,7 +9,7 @@ import {
   Separator,
   View,
 } from "tamagui";
-import { Assets, Release } from "../types/release";
+import { Assets } from "../types/release";
 import { Linking } from "react-native";
 import { DownloadCloud, Copy } from "@tamagui/lucide-icons";
 import { copyToClipboard, showToast } from "../utils";

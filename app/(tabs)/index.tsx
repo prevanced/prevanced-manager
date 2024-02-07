@@ -77,10 +77,10 @@ export default function TabOneScreen() {
           alignItems="center"
           alignSelf="center"
           justifyContent="center"
-          height="100$"
+          height="100%"
           width="100%"
         >
-          <Spinner size="large" color="$blue11" />
+          <Spinner size="large" color="$blue10" scaleX={1.5} scaleY={1.5} />
         </View>
       ) : (
         <>
