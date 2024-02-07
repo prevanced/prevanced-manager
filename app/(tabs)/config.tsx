@@ -113,12 +113,9 @@ export default function TabTwoScreen() {
               }
             />
           </YStack>
-          <XStack gap="$2">
-            <Button theme="blue_alt1" onPress={restoreChanges}>
-              Restore
-            </Button>
-            <Button theme="green_active" color="white" onPress={applyChanges}>
-              Apply changes
+          <XStack gap="$2" w="100%">
+            <Button theme="blue_alt1" onPress={restoreChanges} w="100%">
+              Reset to default
             </Button>
           </XStack>
         </YStack>
