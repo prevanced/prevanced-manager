@@ -23,14 +23,18 @@
       },
       "package": "com.github.prevanced.manager",
       "googleServicesFile": "./google-services.json",
-      "permissions": ["INTERNET", "READ_EXTERNAL_STORAGE", "WRITE_EXTERNAL_STORAGE"]
+      "permissions": ["INTERNET", "POST_NOTIFICATIONS"]
     },
     "web": {
       "bundler": "metro",
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": ["expo-router", "expo-font"],
+    "plugins": [
+      "expo-router", 
+      "expo-font",
+      "@react-native-firebase/app"
+    ],
     "experiments": {
       "typedRoutes": true
     }

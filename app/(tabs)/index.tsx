@@ -7,6 +7,7 @@ import { prepareLoading } from "../../utils/load";
 import { fetchReleases } from "../../utils/release";
 import { checkForUpdate, showToast } from "../../utils";
 import { Alert } from "react-native";
+import {PermissionsAndroid} from 'react-native';
 
 export default function TabOneScreen() {
   const [search, setSearch] = useState("");
@@ -26,6 +27,7 @@ export default function TabOneScreen() {
   };
 
   useEffect(() => {
+    PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
     fetchAndSetReleases();
     checkForUpdate().catch((error) => showToast(String(error)));
   }, []);
