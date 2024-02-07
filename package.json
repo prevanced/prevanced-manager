@@ -18,6 +18,7 @@
     "@expo/metro-runtime": "3.1.1",
     "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-native-clipboard/clipboard": "^1.13.2",
+    "@react-native-firebase/app": "^18.8.0",
     "@react-navigation/native": "^6.0.2",
     "@tamagui/config": "^1.88.19",
     "@tamagui/lucide-icons": "^1.88.19",
