@@ -6,12 +6,14 @@ import {
   ThemeProvider,
 } from "@react-navigation/native";
 import { SplashScreen, Stack } from "expo-router";
-import { useColorScheme } from "react-native";
+import { Alert, useColorScheme } from "react-native";
 import { TamaguiProvider } from "tamagui";
 
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import { config } from "../tamagui.config";
+import { PermissionsAndroid } from "react-native";
+import messaging from "@react-native-firebase/messaging";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -48,6 +50,47 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
+
+  const handlePermission = async () => {
+    const notificationPermissionStatus = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+    );
+    if (notificationPermissionStatus === "granted") {
+      const unsubscribe = messaging().onTokenRefresh((token) => {
+        console.log("FCM Token", token);
+      });
+      return unsubscribe;
+    }
+  };
+
+  useEffect(() => {
+    handlePermission();
+    // Register background handler
+    messaging().setBackgroundMessageHandler(async (_) => {
+      console.log("Message handled in the background!");
+    });
+    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
+      if (remoteMessage.notification?.title) {
+        let title = remoteMessage.notification?.title;
+        if (!title) {
+          title = "Notification 📬";
+        }
+        const body = remoteMessage.notification?.body;
+        Alert.alert(title, body, [{ text: "OK" }]);
+      } else {
+        let title = remoteMessage.data?.title;
+        if (!title) {
+          title = "New message 📬";
+        }
+        const body = remoteMessage.data?.body;
+        if (!body) {
+          return;
+        }
+        Alert.alert(title.toString(), body!.toString());
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   return (
     <TamaguiProvider config={config} defaultTheme={colorScheme as any}>

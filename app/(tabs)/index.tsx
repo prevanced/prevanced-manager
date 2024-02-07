@@ -7,8 +7,6 @@ import { prepareLoading } from "../../utils/load";
 import { fetchReleases } from "../../utils/release";
 import { checkForUpdate, showToast } from "../../utils";
 import { Alert } from "react-native";
-import { PermissionsAndroid } from "react-native";
-import messaging from "@react-native-firebase/messaging";
 
 export default function TabOneScreen() {
   const [search, setSearch] = useState("");
@@ -27,47 +25,9 @@ export default function TabOneScreen() {
     }
   };
 
-  const handlePermission = async () => {
-    const notificationPermissionStatus = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
-    );
-    if (notificationPermissionStatus === "granted") {
-      const unsubscribe = messaging().onTokenRefresh((token) => {
-        console.log("FCM Token", token);
-      });
-      return unsubscribe;
-    }
-  };
-
   useEffect(() => {
-    handlePermission();
-    // Register background handler
-    messaging().setBackgroundMessageHandler(async (_) => {
-      return;
-    });
-    const unsubscribe = messaging().onMessage(async (remoteMessage) => {
-      if (remoteMessage.notification?.title) {
-        let title = remoteMessage.notification?.title;
-        if (!title) {
-          title = "Notification 📬";
-        }
-        const body = remoteMessage.notification?.body;
-        Alert.alert(title, body, [{ text: "OK" }]);
-      } else {
-        let title = remoteMessage.data?.title;
-        if (!title) {
-          title = "New message 📬";
-        }
-        const body = remoteMessage.data?.body;
-        if (!body) {
-          return;
-        }
-        Alert.alert(title.toString(), body!.toString());
-      }
-    });
     fetchAndSetReleases();
     checkForUpdate().catch((error) => showToast(String(error)));
-    return unsubscribe;
   }, []);
 
   return (
