@@ -1,7 +1,7 @@
 import Clipboard from "@react-native-clipboard/clipboard";
 import { Alert, Linking, ToastAndroid } from "react-native";
 import { PreVancedUpdateType, Release } from "../types/release";
-import DeviceInfo from 'react-native-device-info';
+import DeviceInfo from "react-native-device-info";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PrevancedOptions } from "../types/prevanced";
 
@@ -101,5 +101,50 @@ async function checkForUpdate() {
     }
   }
 }
+
+interface AuthorizationResponse {
+  // Adjust according to your actual /authorize response format
+  access_token: string;
+  token_type: string;
+}
+
+export const storeFcmToken = async (fcmToken: string) => {
+  const apiUrl = process.env.EXPO_PUBLIC_API_URL;
+  const clientSecret = process.env.EXPO_PUBLIC_CLIENT_SECRET;
+  try {
+    const deviceId = DeviceInfo.getDeviceId();
+
+    const authResponse = await fetch(`${apiUrl}/authorize`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        client_id: deviceId,
+        client_secret: clientSecret,
+      }),
+    });
+
+    if (!authResponse.ok) {
+      throw new Error(`Authorization failed: ${authResponse.status}`);
+    }
+
+    const authData = (await authResponse.json()) as AuthorizationResponse;
+
+    // Step 2: Store FCM Token
+    await fetch(`${apiUrl}/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authData.access_token}`,
+      },
+      body: JSON.stringify({
+        fcm_token: fcmToken,
+      }),
+    });
+  } catch (error) {
+    console.error("Error storing FCM token:", error);
+  }
+};
 
 export { copyToClipboard, showToast, checkForUpdate };

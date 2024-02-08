@@ -14,6 +14,8 @@ import { useEffect } from "react";
 import { config } from "../tamagui.config";
 import { PermissionsAndroid } from "react-native";
 import messaging from "@react-native-firebase/messaging";
+import { showToast, storeFcmToken } from "../utils";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -56,8 +58,24 @@ function RootLayoutNav() {
       PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
     );
     if (notificationPermissionStatus === "granted") {
+      const token = await messaging().getToken();
+      const savedToken = await AsyncStorage.getItem("savedToken");
+      if (savedToken && savedToken === token) {
+        console.log("FCM token already saved");
+      } else {
+        console.log("Saving FCM token");
+        storeFcmToken(token).catch((error) => {
+          showToast("Error saving FCM token");
+          console.error("Error saving FCM token", error);
+        });
+        AsyncStorage.setItem("savedToken", token);
+      }
       const unsubscribe = messaging().onTokenRefresh((token) => {
-        console.log("FCM Token", token);
+        console.log("Updating FCM token");
+        storeFcmToken(token).catch((error) => {
+          showToast("Error saving FCM token");
+          console.error("Error saving FCM token", error);
+        });
       });
       return unsubscribe;
     }
