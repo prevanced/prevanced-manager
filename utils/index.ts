@@ -25,7 +25,7 @@ const checkAppUpdate = async (): Promise<PreVancedUpdateType> => {
 
     // Make a request to the GitHub API to get the latest release
     const response = await fetch(
-      "https://api.github.com/repos/Dare-Devill/Prevanced-app/releases/latest"
+      "https://api.github.com/repos/Dare-Devill/prevanced-manager/releases/latest"
     );
     const data: Release = await response.json();
 
