@@ -33,7 +33,7 @@ const checkAppUpdate = async (): Promise<PreVancedUpdateType> => {
     const latestVersion = data.tag_name.slice(1);
 
     // Compare the current version with the latest version
-    if (currentVersion !== latestVersion) {
+    if (currentVersion != latestVersion) {
       // There is an update available
       return {
         version: latestVersion,

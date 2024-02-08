@@ -3,6 +3,9 @@ import { PrevancedOptions } from "../types/prevanced";
 import { Assets, Release } from "../types/release";
 import { filesize } from 'filesize';
 
+
+
+
 export async function fetchReleases(): Promise<Release> {
   const awaitedOptions = await AsyncStorage.getItem("prevancedOptions");
   const prevancedOptions: PrevancedOptions | null = JSON.parse(
