@@ -55,6 +55,9 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Create google-services.json
+        run: echo ${{ secrets.GOOGLE_SERVICES_JSON }} > google-services.json
+
       - name: Build Expo
         run: bun run build:android
         
@@ -69,6 +72,9 @@ jobs:
             -Pandroid.injected.signing.key.alias="key0" \
             -Pandroid.injected.signing.key.password="${{ secrets.KEY_PASSWORD }}" \
             -Pandroid.enableProguardInReleaseBuilds=true
+        env:
+          EXPO_PUBLIC_API_URL: ${{ secrets.EXPO_PUBLIC_API_URL }}
+          EXPO_PUBLIC_CLIENT_SECRET: ${{ secrets.EXPO_PUBLIC_CLIENT_SECRET }}
 
 
       - name: Rename APK

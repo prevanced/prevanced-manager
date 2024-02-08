@@ -111,6 +111,9 @@ interface AuthorizationResponse {
 export const storeFcmToken = async (fcmToken: string) => {
   const apiUrl = process.env.EXPO_PUBLIC_API_URL;
   const clientSecret = process.env.EXPO_PUBLIC_CLIENT_SECRET;
+  if (!apiUrl || !clientSecret) {
+    throw new Error("API URL or client secret not set");
+  }
   try {
     const deviceId = await DeviceInfo.getUniqueId();
 
