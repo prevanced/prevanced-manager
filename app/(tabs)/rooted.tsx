@@ -2,9 +2,9 @@ import { RefreshCcwDot } from "@tamagui/lucide-icons";
 import { useEffect, useState } from "react";
 import { Button, Input, Spinner, View, XStack, YStack, Text } from "tamagui";
 import ListAppCards from "../../components/ListAppCards";
-import { microglink } from "../../app/(tabs)/config";
+import { modulelink } from "../../app/(tabs)/config";
 import { prepareLoading } from "../../utils/load";
-import { fetchReleases } from "../../utils/release";
+import { fetchReleases } from "../../utils/release2";
 import { checkForUpdate, showToast } from "../../utils";
 import { Alert, Linking } from "react-native";
 // import { Link } from '@react-navigation/native';
@@ -84,7 +84,7 @@ export default function TabOneScreen() {
 }
 {
             <XStack p="$2" mt="$2" mb="$1.5" gap="$2" justifyContent="center" alignContent="center" width="100%" overflow="hidden" borderRadius="$12" backgroundColor="$blue1" theme="blue_alt1" >
-            <Text onPress={() => Linking.openURL(microglink)}  color={"red"} > Download MicroG</Text>
+            <Text onPress={() => Linking.openURL(modulelink)}  color={"red"} > Detach Module</Text>
             </XStack>
           }
           <View alignItems="center">

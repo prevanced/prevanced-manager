@@ -18,8 +18,15 @@ export default function TabLayout() {
       <Tabs.Screen
         name="index"
         options={{
-          title: "Downloads",
-          headerTitle: "PreVanced Manager",
+          title: "Non-Rooted",
+          headerTitle: "Non-Rooted Builds",
+          tabBarIcon: ({ color }) => <Download color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="rooted"
+        options={{
+          title: "Rooted Builds",
           tabBarIcon: ({ color }) => <Download color={color} />,
         }}
       />
@@ -31,5 +38,7 @@ export default function TabLayout() {
         }}
       />
     </Tabs>
+    
+    
   );
 }

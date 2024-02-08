@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2023 Pratham Mishra.
+ * All Rights Reserved.
+ * 
+ * See the LICENSE file for more information.
+ */
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PrevancedOptions } from "../types/prevanced";
 import { Assets, Release } from "../types/release";
@@ -34,13 +41,13 @@ export async function fetchReleases(): Promise<Release> {
   let assets: Assets[] = [];
   if (data.assets) {
     assets = data.assets
-    .filter((asset: Assets) => !asset.name.match("magisk"))
+    .filter((asset: Assets) => !asset.name.match("apk"))
     .map((asset: Assets) => {
       let name = "";
       let version = "";
       let arch = "";
       let brand = "";
-      const regex = /(.+)-([a-z]+)-(v[\d.]+)-(\S+)\.apk/;
+      const regex = /(.+)-([a-z]+)-(v[\d.]+)-(\S+)\.zip/;
       const match = asset.name.match(regex);
 
       if (match) {

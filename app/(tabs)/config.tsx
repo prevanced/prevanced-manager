@@ -14,10 +14,15 @@ import { PrevancedOptions } from "../../types/prevanced";
 import { showToast } from "../../utils";
 import SwitchWithLabel from "../../components/SwitchWithLabel";
 
+export let microglink: string;
+export let modulelink: string;
+
 export default function TabTwoScreen() {
   const [prevancedOptions, setPrevancedOptions] = useState<PrevancedOptions>({
-    ghRepo: "revanced-apks/build-apps",
+    ghRepo: "Dare-Devill/Revanced-apps",
     ghReleaseTag: "latest",
+    microg: "https://github.com/inotia00/VancedMicroG/releases/tag/v0.3.0.234914",
+    module: "https://github.com/j-hc/zygisk-detach/releases/tag/v1.11.0",
     prevancedManagerUpdate: true,
   });
 
@@ -35,8 +40,10 @@ export default function TabTwoScreen() {
 
   const restoreChanges = () => {
     const default_options: PrevancedOptions = {
-      ghRepo: "revanced-apks/build-apps",
+      ghRepo: "Dare-Devill/Revanced-apps",
       ghReleaseTag: "latest",
+      microg: "https://github.com/inotia00/VancedMicroG/releases/tag/v0.3.0.234914",
+      module: "https://github.com/j-hc/zygisk-detach/releases/tag/v1.11.0",
       prevancedManagerUpdate: true,
     };
 
@@ -56,6 +63,13 @@ export default function TabTwoScreen() {
     });
   };
 
+  useEffect(() => {
+    microglink = prevancedOptions.microg;
+  }, [prevancedOptions]);
+  useEffect(() => {
+    modulelink = prevancedOptions.module;
+  }, [prevancedOptions]);
+
   return (
     <ScrollView>
       <View paddingVertical="$2">
@@ -65,7 +79,7 @@ export default function TabTwoScreen() {
               GitHub Repository
             </Label>
             <Paragraph theme="alt1">
-              The repository to use for fetching the latest APKs from. This
+              The repository to use for fetching the latest Builds from. This
               should be a public repository.
             </Paragraph>
             <Input
@@ -76,6 +90,7 @@ export default function TabTwoScreen() {
               }
             />
           </YStack>
+
           <YStack gap="$2">
             <Label htmlFor="ghReleaseTag" fontSize="$5">
               Release Tag
@@ -93,6 +108,40 @@ export default function TabTwoScreen() {
               }
             />
           </YStack>
+
+          <YStack gap="$2">
+            <Label htmlFor="microg" fontSize="$5">
+              MicroG Link
+            </Label>
+            <Paragraph theme="alt1">
+              The MicroG link to Download from the Manager App
+            </Paragraph>
+            <Input
+              id="microg"
+              defaultValue={prevancedOptions.microg}
+              onChangeText={(text) =>
+                setPrevancedOptions({ ...prevancedOptions, microg: text })
+              }
+            />
+          </YStack>
+
+          <YStack gap="$2">
+            <Label htmlFor="module" fontSize="$5">
+              Detach Module
+            </Label>
+            <Paragraph theme="alt1">
+              The Detach Module link to Download from the Manager App
+            </Paragraph>
+            <Input
+              id="module"
+              defaultValue={prevancedOptions.module}
+              onChangeText={(text) =>
+                setPrevancedOptions({ ...prevancedOptions, module: text })
+              }
+            />
+          </YStack>
+
+
           <YStack gap="$2">
             <Label fontSize="$5">Updates</Label>
             <Paragraph theme="alt1">
