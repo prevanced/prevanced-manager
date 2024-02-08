@@ -7,10 +7,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  Gradle:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
 
     steps:
       - name: checkout code
@@ -32,7 +34,7 @@ jobs:
           bun-version: "1.0.26"
           cache: true
           cache-bin: true
-          
+
       - name: Prepare Tag
         shell: bash
         id: tag
@@ -60,7 +62,7 @@ jobs:
 
       - name: Build Expo
         run: bun run build:android
-        
+
       - name: Build Signed APK
         run: |
           cd android
@@ -75,7 +77,6 @@ jobs:
         env:
           EXPO_PUBLIC_API_URL: ${{ secrets.EXPO_PUBLIC_API_URL }}
           EXPO_PUBLIC_CLIENT_SECRET: ${{ secrets.EXPO_PUBLIC_CLIENT_SECRET }}
-
 
       - name: Rename APK
         shell: bash
@@ -107,3 +108,9 @@ jobs:
           git add app.json android/app/build.gradle
           git commit -m "chore: bump version to $tag"
           git push origin main
+
+  notify:
+    needs: build
+    uses: ./.github/workflows/notify.yml
+    with:
+      release_tag: ${{ needs.build.outputs.tag }}
