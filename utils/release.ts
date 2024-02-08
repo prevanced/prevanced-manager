@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PrevancedOptions } from "../types/prevanced";
 import { Assets, Release } from "../types/release";
+import { filesize } from 'filesize';
 
 export async function fetchReleases(): Promise<Release> {
   const awaitedOptions = await AsyncStorage.getItem("prevancedOptions");
@@ -34,12 +35,13 @@ export async function fetchReleases(): Promise<Release> {
   let assets: Assets[] = [];
   if (data.assets) {
     assets = data.assets
-    .filter((asset: Assets) => !asset.name.match("magisk"))
+    .filter((asset: Assets) => !asset.name.match("zip"))
     .map((asset: Assets) => {
       let name = "";
       let version = "";
       let arch = "";
       let brand = "";
+      let size = asset.size;
       const regex = /(.+)-([a-z]+)-(v[\d.]+)-(\S+)\.apk/;
       const match = asset.name.match(regex);
 
@@ -87,6 +89,7 @@ export async function fetchReleases(): Promise<Release> {
         fileName: asset.name,
         version,
         arch,
+        size: filesize(asset.size),
         browser_download_url: asset.browser_download_url,
       };
     });

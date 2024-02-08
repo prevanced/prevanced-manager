@@ -13,6 +13,10 @@ import {
 import { PrevancedOptions } from "../../types/prevanced";
 import { showToast } from "../../utils";
 import SwitchWithLabel from "../../components/SwitchWithLabel";
+import { Triangle } from "@tamagui/lucide-icons";
+import { openURL } from "expo-linking";
+import { Linking } from "react-native";
+
 
 export let microglink: string;
 export let modulelink: string;
@@ -51,6 +55,10 @@ export default function TabTwoScreen() {
 
     showToast("Restored. Don't forget `Apply changes`");
   };
+
+  // const openAbout = () =>{
+    
+  // }
 
   const applyChanges = () => {
     Promise.all([
@@ -170,8 +178,25 @@ export default function TabTwoScreen() {
               Apply changes
             </Button>
           </XStack>
+          <YStack gap="$2">
+            <Label fontSize="$5" >
+              I'am Social 
+            </Label>
+            <Paragraph paddingTop="3%" theme="alt1">
+            <Button  theme="blue" size="$3" onPress={() => Linking.openURL("https://telegram.me/+OEy1kP-WyMZjZGY1")}>
+              Telegram
+            </Button>
+            </Paragraph>
+            <Paragraph paddingTop="4%" theme="alt1">
+            <Button  theme="pink" size="$3" onPress={() => Linking.openURL("https://instagram.com/_pratham_mishra_")}>
+              Instgram
+            </Button>
+            </Paragraph>
+          </YStack>
         </YStack>
+       
       </View>
+      
     </ScrollView>
   );
 }

@@ -1,13 +1,7 @@
-/*
- * Copyright (c) 2023 Pratham Mishra.
- * All Rights Reserved.
- * 
- * See the LICENSE file for more information.
- */
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { PrevancedOptions } from "../types/prevanced";
 import { Assets, Release } from "../types/release";
+import { filesize } from 'filesize';
 
 export async function fetchReleases(): Promise<Release> {
   const awaitedOptions = await AsyncStorage.getItem("prevancedOptions");
@@ -47,6 +41,8 @@ export async function fetchReleases(): Promise<Release> {
       let version = "";
       let arch = "";
       let brand = "";
+      let size = asset.size;
+      
       const regex = /(.+)-([a-z]+)-(v[\d.]+)-(\S+)\.zip/;
       const match = asset.name.match(regex);
 
@@ -87,13 +83,15 @@ export async function fetchReleases(): Promise<Release> {
           name = name + " " + arch;
         }
       }
+      
 
       return {
-        name,
+        name: name.replace("-revanced",""),
         brand,
         fileName: asset.name,
         version,
         arch,
+        size: filesize(asset.size),
         browser_download_url: asset.browser_download_url,
       };
     });

@@ -32,6 +32,8 @@ export default function DisplayApp(props: DisplayAppProps) {
               <Paragraph>{release.version}</Paragraph>
               <Separator alignSelf="stretch" vertical marginHorizontal={15} />
               <Paragraph>{release.arch}</Paragraph>
+              <Separator alignSelf="stretch" vertical marginHorizontal={15} />
+              <Paragraph>{release.size}</Paragraph>
             </XStack>
           </Card.Header>
           <Card.Footer gap="$2" justifyContent="center" width="100%">

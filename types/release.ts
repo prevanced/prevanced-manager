@@ -4,6 +4,7 @@ export type Assets = {
     fileName: string;
     version: string;
     arch: string;
+    size: number;
     browser_download_url: string;
 }
 
