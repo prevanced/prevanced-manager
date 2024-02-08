@@ -112,7 +112,7 @@ export const storeFcmToken = async (fcmToken: string) => {
   const apiUrl = process.env.EXPO_PUBLIC_API_URL;
   const clientSecret = process.env.EXPO_PUBLIC_CLIENT_SECRET;
   try {
-    const deviceId = DeviceInfo.getDeviceId();
+    const deviceId = await DeviceInfo.getUniqueId();
 
     const authResponse = await fetch(`${apiUrl}/authorize`, {
       method: "POST",
