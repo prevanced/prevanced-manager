@@ -152,23 +152,11 @@ export const storeFcmToken = async (fcmToken: string) => {
 
 const onShare = async (title: string, message: string, url: string) => {
   try {
-    const result = await Share.share({
+    await Share.share({
       title,
       message,
-      url // Optional if you want to share a link
+      url
     });
-
-    if (result.action === Share.sharedAction) {
-      if (result.activityType) {
-        // Shared with activity type of result.activityType
-        console.log(result.activityType);
-      } else {
-        // Shared without an activity type
-        console.log('Shared');
-      }
-    } else if (result.action === Share.dismissedAction) {
-      // Sharing dialog dismissed
-    }
   } catch (error: any) {
     showToast(String(error.message));
   }
