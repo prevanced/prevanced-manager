@@ -1,6 +1,15 @@
-import { RefreshCcwDot } from "@tamagui/lucide-icons";
+import { Filter, RefreshCw } from "@tamagui/lucide-icons";
 import { useEffect, useState } from "react";
-import { Button, Input, Spinner, View, XStack, YStack, Text } from "tamagui";
+import {
+  Button,
+  Input,
+  Spinner,
+  View,
+  XStack,
+  YStack,
+  Text,
+  Accordion,
+} from "tamagui";
 import ListAppCards from "../../components/ListAppCards";
 import { Release } from "../../types/release";
 import { prepareLoading } from "../../utils/load";
@@ -65,30 +74,33 @@ export default function TabOneScreen() {
               borderRadius="$12"
               bordered
               accessibilityLabel="Refresh"
+              circular
               mr="$3"
-            >
-              <RefreshCcwDot size="$1" />
-            </Button>
+              scaleIcon={1.5}
+              icon={RefreshCw}
+            />
           </XStack>
           {releases && (
-            <XStack
-              p="$2"
-              mt="$2"
-              mb="$1.5"
-              gap="$2"
-              justifyContent="center"
-              alignContent="center"
-              width="100%"
-              overflow="hidden"
-              borderRadius="$12"
-              backgroundColor="$blue1"
-              theme="blue_alt1"
-            >
-              <Text>Release {releases.name}</Text>
-              <Text>
-                on {new Date(releases.published_at).toLocaleDateString()}
-              </Text>
-            </XStack>
+            <>
+              <XStack
+                p="$2"
+                mt="$2"
+                mb="$1.5"
+                gap="$2"
+                justifyContent="center"
+                alignContent="center"
+                width="100%"
+                overflow="hidden"
+                borderRadius="$12"
+                backgroundColor="$blue1"
+                theme="blue_alt1"
+              >
+                <Text>Release {releases.name}</Text>
+                <Text>
+                  on {new Date(releases.published_at).toLocaleDateString()}
+                </Text>
+              </XStack>
+            </>
           )}
           <View alignItems="center">
             {releases && releases.assets && (
