@@ -53,7 +53,7 @@ jobs:
         run: echo "${{ secrets.GOOGLE_AUTH_JSON }}" | base64 -d > google-services.json
 
       - name: Run push notification script
-        if: ${{ inputs.release_tag || github.event.inputs.type == 'Release Notification' && inputs.release_tag }}
+        if: ${{ inputs.release_tag }}
         run: |
           release_tag="${{ inputs.release_tag }}"
           release_body=$(gh release view $release_tag --json body -q .body)
