@@ -1,5 +1,5 @@
 import Clipboard from "@react-native-clipboard/clipboard";
-import { Alert, Linking, ToastAndroid } from "react-native";
+import { Alert, Linking, Share, ToastAndroid } from "react-native";
 import { PreVancedUpdateType, Release } from "../types/release";
 import DeviceInfo from "react-native-device-info";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -150,4 +150,28 @@ export const storeFcmToken = async (fcmToken: string) => {
   }
 };
 
-export { copyToClipboard, showToast, checkForUpdate };
+const onShare = async (title: string, message: string, url: string) => {
+  try {
+    const result = await Share.share({
+      title,
+      message,
+      url // Optional if you want to share a link
+    });
+
+    if (result.action === Share.sharedAction) {
+      if (result.activityType) {
+        // Shared with activity type of result.activityType
+        console.log(result.activityType);
+      } else {
+        // Shared without an activity type
+        console.log('Shared');
+      }
+    } else if (result.action === Share.dismissedAction) {
+      // Sharing dialog dismissed
+    }
+  } catch (error: any) {
+    showToast(String(error.message));
+  }
+};
+
+export { copyToClipboard, showToast, checkForUpdate, onShare };

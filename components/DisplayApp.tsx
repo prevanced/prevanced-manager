@@ -11,8 +11,8 @@ import {
 } from "tamagui";
 import { Assets } from "../types/release";
 import { Linking } from "react-native";
-import { DownloadCloud, Copy } from "@tamagui/lucide-icons";
-import { copyToClipboard, showToast } from "../utils";
+import { DownloadCloud, Copy, Share2 } from "@tamagui/lucide-icons";
+import { copyToClipboard, onShare, showToast } from "../utils";
 
 type DisplayAppProps = {
   release: Assets;
@@ -40,7 +40,7 @@ export default function DisplayApp(props: DisplayAppProps) {
               size="$3"
               bordered
               theme="blue_alt1"
-              width="80%"
+              width="60%"
               onPress={() => Linking.openURL(release.browser_download_url)}
             >
               <DownloadCloud size="$1" /> Download
@@ -57,6 +57,21 @@ export default function DisplayApp(props: DisplayAppProps) {
               }}
             >
               <Copy size="$1" />
+            </Button>
+            <Button
+              borderRadius="$12"
+              size="$3"
+              theme="blue_alt1"
+              width="15%"
+              padding="$2"
+              onPress={() => {
+                const title = `${release.name} ${release.version}`;
+                const message = `Download ${release.fileName} at ${release.browser_download_url}
+                \n\nShared via PreVanced Manager - https://github.com/PreVanced/prevanced-manager )`;
+                onShare(title, message, release.browser_download_url);
+              }}
+            >
+              <Share2 size="$1" />
             </Button>
           </Card.Footer>
         </Card>
