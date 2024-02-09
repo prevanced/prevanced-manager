@@ -12,7 +12,22 @@ on:
       release_tag:
         type: string
         description: 'The tag of the release'
+        required: false
+      type:
+        type: choice
+        description: 'The type of action to perform'
         required: true
+        options:
+          - Release Notification
+          - Custom Notification
+      title:
+        type: string
+        description: 'The title of the notification'
+        required: false
+      body:
+        type: string
+        description: 'The body of the notification'
+        required: false
       
 
 jobs:
@@ -38,10 +53,15 @@ jobs:
         run: echo "${{ secrets.GOOGLE_AUTH_JSON }}" | base64 -d > google-services.json
 
       - name: Run push notification script
+        if: ${{ inputs.release_tag || github.event.inputs.type == 'Release Notification' && inputs.release_tag }}
         run: |
           release_tag="${{ inputs.release_tag }}"
           release_body=$(gh release view $release_tag --json body -q .body)
           python3 push-notify --title "App update $release_tag" --body "$release_body" --api_url ${{ secrets.NOTIF_API_URL }} --bearer ${{ secrets.NOTIF_API_BEARER }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+
+      - name: Run custom notification script
+        if: ${{ github.event.inputs.type == 'Custom Notification' && inputs.title && inputs.body }}
+        run: |
+          python3 push-notify --title "${{ inputs.title }}" --body "${{ inputs.body }}" --api_url ${{ secrets.NOTIF_API_URL }} --bearer ${{ secrets.NOTIF_API_BEARER }}      
