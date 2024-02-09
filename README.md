@@ -37,6 +37,14 @@ Download the latest release from [here](https://github.com/prevanced/prevanced-m
 
 We welcome contributions from the community. We use React Native for the app with Expo. It is fully written in TypeScript and compiled to native Java/Kotlin code for Android.
 
+## Prerequisites
+
+Before proceeding, ensure you have the following prerequisites installed:
+
+- Node.js version 18 or higher
+- JDK version 17
+
+
 We recommend you use `bun` to manage the project. However, you can use `npm`, `pnpm` or `yarn` as well.
 
 ### Setup
