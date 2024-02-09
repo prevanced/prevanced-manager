@@ -1,4 +1,5 @@
 <resources>
+  <color name="splashscreen_background">#000000</color>
   <color name="alert_background">#222222</color>
   <color name="alert_text">#ffffff</color>
 </resources>
