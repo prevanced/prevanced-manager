@@ -37,7 +37,7 @@ export default function TabOneScreen() {
         stringPrevancedFilterApps || "{}"
       );
       if (prevancedFilterApps && prevancedFilterApps.filterApps) {
-        const filterApps = prevancedFilterApps.filterApps;
+        let filterApps = prevancedFilterApps.filterApps;
         // add apps which are not in the list
         const newApps = fetchedReleases.assets.filter((release) => {
           return !filterApps.some(
