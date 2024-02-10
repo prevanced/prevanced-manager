@@ -92,6 +92,7 @@ jobs:
           tag: ${{ steps.tag.outputs.tag }}
           prerelease: ${{ steps.tag.outputs.prerelease }}
           allowUpdates: true
+          omitBodyDuringUpdate: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
