@@ -14,7 +14,6 @@ function ListAppCards(props: ListAppCardsProps) {
     <ScrollView>
       <XStack
         p="$2"
-        mt="$2"
         mb="$1.5"
         gap="$2"
         justifyContent="center"
@@ -31,7 +30,7 @@ function ListAppCards(props: ListAppCardsProps) {
       <YGroup
         alignSelf="center"
         size="$4"
-        paddingTop="$2"
+        paddingTop="$1.5"
         gap="$3"
       >
         {releases

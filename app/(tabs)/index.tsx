@@ -89,7 +89,7 @@ export default function TabOneScreen() {
   }, []);
 
   return (
-    <YStack padding="$2" width="100%" paddingBottom="$10">
+    <YStack padding="$2" width="100%" paddingBottom="$8">
       {loading ? (
         <View
           alignItems="center"
@@ -102,7 +102,7 @@ export default function TabOneScreen() {
         </View>
       ) : (
         <>
-          <XStack gap="$2" alignItems="center" alignSelf="center" width="100%">
+          <XStack gap="$2" alignItems="center" alignSelf="center" width="100%" pb="$2">
             <Input
               placeholder="Search"
               paddingStart="$6"
@@ -119,7 +119,7 @@ export default function TabOneScreen() {
               width="13%"
               alignSelf="center"
               padding="$2"
-              size="$4"
+              size="$3"
               borderRadius="$12"
               bordered
               accessibilityLabel="Refresh"
