@@ -50,44 +50,19 @@ const PopSheet = (props: Props) => {
                 <Adapt.Contents />
               </Sheet.ScrollView>
             </Sheet.Frame>
-            <Sheet.Overlay
-              animation="lazy"
-              enterStyle={{ opacity: 0 }}
-              exitStyle={{ opacity: 0 }}
-            />
           </Sheet>
         </Adapt>
 
         <Dialog.Portal>
-          <Dialog.Overlay
-            key="overlay"
-            animation="slow"
-            opacity={0.5}
-            enterStyle={{ opacity: 0 }}
-            exitStyle={{ opacity: 0 }}
-          />
-
           <Dialog.Content
             bordered
             elevate
             key="content"
-            animateOnly={["transform", "opacity"]}
-            animation={[
-              "quick",
-              {
-                opacity: {
-                  overshootClamping: true,
-                },
-              },
-            ]}
-            enterStyle={{ x: 0, y: -20, opacity: 0, scale: 0.9 }}
-            exitStyle={{ x: 0, y: 10, opacity: 0, scale: 0.95 }}
             gap="$4"
           >
             <Dialog.Title>{props.title}</Dialog.Title>
             <Dialog.Description>{props.description}</Dialog.Description>
             <View>{props.children}</View>
-
             <Unspaced>
               <Dialog.Close asChild displayWhenAdapted>
                 <Button
