@@ -3,3 +3,12 @@ export type PrevancedOptions = {
   ghReleaseTag: string;
   prevancedManagerUpdate: boolean;
 };
+
+export type PrevancedFilterApp = {
+  name: string;
+  checked: boolean;
+};
+
+export type PrevancedFilterApps = {
+  filterApps: PrevancedFilterApp[];
+};

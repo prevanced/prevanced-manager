@@ -4,16 +4,8 @@ import { BackHandler } from "react-native";
 import {
   Adapt,
   Button,
-  Dialog,
-  Fieldset,
-  Input,
-  Label,
-  Paragraph,
-  Sheet,
-  Text,
-  TooltipSimple,
-  Unspaced,
-  XStack,
+  Dialog, Sheet, Unspaced,
+  View
 } from "tamagui";
 
 type Props = {
@@ -37,7 +29,6 @@ const PopSheet = (props: Props) => {
         return false;
       }
     );
-
     return () => backHandler.remove();
   }, [props.open]);
   return (
@@ -55,7 +46,9 @@ const PopSheet = (props: Props) => {
             modal={props.model}
           >
             <Sheet.Frame padding="$4" gap="$4">
-              <Adapt.Contents />
+              <Sheet.ScrollView>
+                <Adapt.Contents />
+              </Sheet.ScrollView>
             </Sheet.Frame>
             <Sheet.Overlay
               animation="lazy"
@@ -93,17 +86,17 @@ const PopSheet = (props: Props) => {
           >
             <Dialog.Title>{props.title}</Dialog.Title>
             <Dialog.Description>{props.description}</Dialog.Description>
-
-            {props.children}
+            <View>{props.children}</View>
 
             <Unspaced>
               <Dialog.Close asChild displayWhenAdapted>
                 <Button
                   position="absolute"
-                  top="$3"
-                  right="$3"
+                  top="$0"
+                  right="$1"
                   size="$3"
                   circular
+                  scaleIcon={1.5}
                   icon={X}
                 />
               </Dialog.Close>

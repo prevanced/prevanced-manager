@@ -1,21 +1,22 @@
-import { Filter, RefreshCw } from "@tamagui/lucide-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { RefreshCw } from "@tamagui/lucide-icons";
 import { useEffect, useState } from "react";
+import { Alert } from "react-native";
 import {
   Button,
   Input,
   Spinner,
+  Text,
   View,
   XStack,
-  YStack,
-  Text,
-  Accordion,
+  YStack
 } from "tamagui";
 import ListAppCards from "../../components/ListAppCards";
+import { PrevancedFilterApp, PrevancedFilterApps } from "../../types/prevanced";
 import { Release } from "../../types/release";
+import { checkForUpdate, showToast } from "../../utils";
 import { prepareLoading } from "../../utils/load";
 import { fetchReleases } from "../../utils/release";
-import { checkForUpdate, showToast } from "../../utils";
-import { Alert } from "react-native";
 
 export default function TabOneScreen() {
   const [search, setSearch] = useState("");
@@ -29,6 +30,54 @@ export default function TabOneScreen() {
     try {
       const fetchedReleases = await withLoading(fetchReleases);
       setReleases(fetchedReleases);
+      // apply filterApps
+      const stringPrevancedFilterApps = await AsyncStorage.getItem(
+        "prevancedFilterApps"
+      );
+      const prevancedFilterApps: PrevancedFilterApps = JSON.parse(
+        stringPrevancedFilterApps || "{}"
+      );
+      if (prevancedFilterApps && prevancedFilterApps.filterApps) {
+        const filterApps = prevancedFilterApps.filterApps;
+        // add apps which are not in the list
+        const newApps = fetchedReleases.assets.filter((release) => {
+          return !filterApps.some(
+            (filterApp) => filterApp.name === release.name
+          );
+        });
+        newApps &&
+          filterApps.push(
+            ...newApps.map((newApp) => {
+              return {
+                name: newApp.name,
+                checked: true,
+              };
+            })
+          );
+        await AsyncStorage.setItem(
+          "prevancedFilterApps",
+          JSON.stringify({ filterApps: filterApps })
+        );
+        const filteredReleases = fetchedReleases.assets.filter((release) => {
+          return filterApps.some(
+            (filterApp) => filterApp.name === release.name && filterApp.checked
+          );
+        });
+        setReleases({ ...fetchedReleases, assets: filteredReleases });
+      } else {
+        const filterApps: PrevancedFilterApp[] = fetchedReleases.assets.map(
+          (release) => {
+            return {
+              name: release.name,
+              checked: true,
+            };
+          }
+        );
+        await AsyncStorage.setItem(
+          "prevancedFilterApps",
+          JSON.stringify({ filterApps: filterApps.reverse() })
+        );
+      }
     } catch (error: unknown) {
       Alert.alert("Error ⛔", String(error));
     }
@@ -40,7 +89,7 @@ export default function TabOneScreen() {
   }, []);
 
   return (
-    <YStack padding="$2">
+    <YStack padding="$2" width="100%">
       {loading ? (
         <View
           alignItems="center"
@@ -102,11 +151,9 @@ export default function TabOneScreen() {
               </XStack>
             </>
           )}
-          <View alignItems="center">
-            {releases && releases.assets && (
-              <ListAppCards releases={releases.assets} search={search} />
-            )}
-          </View>
+          {releases && releases.assets && (
+            <ListAppCards releases={releases.assets} search={search} />
+          )}
         </>
       )}
     </YStack>
