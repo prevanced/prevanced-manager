@@ -111,7 +111,31 @@ jobs:
           git push origin main
 
   notify:
+    if: github.ref_name == 'v*'
+    runs-on: ubuntu-latest
     needs: build
-    uses: ./.github/workflows/notify.yml
-    with:
-      release_tag: ${{ needs.build.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11' # The python version to use.
+          cache: 'pip'
+          cache-dependency-path: 'push-notify/requirements.txt'
+
+      - name: Install dependencies
+        run: pip install -r push-notify/requirements.txt
+
+      - name: Create google-auth json
+        run: echo "${{ secrets.GOOGLE_AUTH_JSON }}" | base64 -d > google-services.json
+
+      - name: Run push notification script
+        if: ${{ needs.build.outputs.tag }}
+        run: |
+          release_tag="${{ needs.build.outputs.tag }}"
+          release_body=$(gh release view $release_tag --json body -q .body)
+          python3 push-notify --title "App update $release_tag" --body "$release_body" --api_url ${{ secrets.NOTIF_API_URL }} --bearer ${{ secrets.NOTIF_API_BEARER }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
