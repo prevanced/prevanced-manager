@@ -25,7 +25,7 @@ Download the latest release from [here](https://github.com/prevanced/prevanced-m
 
 ## Todo
 
-- [ ] Add feature to check for updates and push notifications
+- [x] Add feature to check for updates and push notifications
 - [ ] View all installed supported apps and manage them.
 - [ ] One click install for all supported apps
 
