@@ -23,13 +23,12 @@ export default function TabOneScreen() {
   const [loading, setLoading] = useState(false);
   const [releases, setReleases] = useState<Release>();
 
-  const withLoading = async (asyncFunction: () => Promise<Release>) =>
+  const withLoading = async (asyncFunction: () => Promise<void>) =>
     prepareLoading(asyncFunction, setLoading);
 
   const fetchAndSetReleases = async () => {
     try {
-      const fetchedReleases = await withLoading(fetchReleases);
-      setReleases(fetchedReleases);
+      let fetchedReleases = await fetchReleases();
       // apply filterApps
       const stringPrevancedFilterApps = await AsyncStorage.getItem(
         "prevancedFilterApps"
@@ -63,7 +62,7 @@ export default function TabOneScreen() {
             (filterApp) => filterApp.name === release.name && filterApp.checked
           );
         });
-        setReleases({ ...fetchedReleases, assets: filteredReleases });
+        fetchedReleases = { ...fetchedReleases, assets: filteredReleases };
       } else {
         const filterApps: PrevancedFilterApp[] = fetchedReleases.assets.map(
           (release) => {
@@ -78,13 +77,14 @@ export default function TabOneScreen() {
           JSON.stringify({ filterApps: filterApps.reverse() })
         );
       }
+      setReleases(fetchedReleases);
     } catch (error: unknown) {
       Alert.alert("Error ⛔", String(error));
     }
   };
 
   useEffect(() => {
-    fetchAndSetReleases();
+    withLoading(fetchAndSetReleases);
     checkForUpdate().catch((error) => showToast(String(error)));
   }, []);
 
