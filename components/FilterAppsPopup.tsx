@@ -21,7 +21,7 @@ const FilterAppsPopup = (props: Props) => {
       open={open}
       setOpen={setOpen}
       title="Filter Apps"
-      description="Filter which apps to be shown for downloads"
+      description="Filter which apps to be shown for downloads. Make sure you click save changes at the bottom."
     >
       <YStack gap="$2">
         {prevancedFilterApps &&

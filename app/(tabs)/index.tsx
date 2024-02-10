@@ -89,7 +89,7 @@ export default function TabOneScreen() {
   }, []);
 
   return (
-    <YStack padding="$2" width="100%">
+    <YStack padding="$2" width="100%" paddingBottom="$10">
       {loading ? (
         <View
           alignItems="center"
@@ -129,30 +129,8 @@ export default function TabOneScreen() {
               icon={RefreshCw}
             />
           </XStack>
-          {releases && (
-            <>
-              <XStack
-                p="$2"
-                mt="$2"
-                mb="$1.5"
-                gap="$2"
-                justifyContent="center"
-                alignContent="center"
-                width="100%"
-                overflow="hidden"
-                borderRadius="$12"
-                backgroundColor="$blue1"
-                theme="blue_alt1"
-              >
-                <Text>Release {releases.name}</Text>
-                <Text>
-                  on {new Date(releases.published_at).toLocaleDateString()}
-                </Text>
-              </XStack>
-            </>
-          )}
           {releases && releases.assets && (
-            <ListAppCards releases={releases.assets} search={search} />
+            <ListAppCards releases={releases} search={search} />
           )}
         </>
       )}
