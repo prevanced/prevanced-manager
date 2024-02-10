@@ -24,7 +24,7 @@ export default function TabLayout() {
           scaleIcon={1.8}
           onPress={() => {
             Alert.alert("PreVanced Manager", 
-            "PreVanced Manager is a simple app to manage your ReVanced app downloads. All the downloads are fetched from GitHub and are not hosted by the app. The app is open-source and is available on GitHub. You can also join the Telegram group to get the latest updates and news.",
+            "PreVanced Manager is a simple app to manage your ReVanced app downloads. All the downloads are fetched from GitHub and are not hosted by the app. The app is open-source and is available on GitHub. You can also join the Telegram group to get the latest updates and chat with the community.",
             [
               { text: "GitHub", onPress: () => Linking.openURL("https://github.com/prevanced") },
               { text: "Telegram", onPress: () => Linking.openURL("https://telegram.me/prevanced_app") },
