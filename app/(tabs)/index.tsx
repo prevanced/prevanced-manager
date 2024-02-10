@@ -116,8 +116,7 @@ export default function TabOneScreen() {
             />
             <Button
               onPress={fetchAndSetReleases}
-              width="13%"
-              alignSelf="center"
+              width="15%"
               padding="$2"
               size="$3"
               borderRadius="$12"
