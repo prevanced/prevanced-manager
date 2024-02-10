@@ -67,7 +67,7 @@ export default function DisplayApp(props: DisplayAppProps) {
               onPress={() => {
                 const title = `${release.name} ${release.version}`;
                 const message = `Download ${release.fileName} from ${release.browser_download_url}
-                \n\nShared via PreVanced Manager - https://github.com/PreVanced/prevanced-manager )`;
+                \n\nShared via PreVanced Manager - https://github.com/PreVanced/prevanced-manager`;
                 onShare(title, message, release.browser_download_url);
               }}
             >
